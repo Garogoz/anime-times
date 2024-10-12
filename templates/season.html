@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    {{ title }}
+{% endblock %}
+
+{% block main %}
+    <ol>
+        {% for anime in data %}
+        
+            <li>{{ anime['title']['romaji'] }}</li>
+        
+        {% endfor %}
+    </ol>
+{% endblock %}
