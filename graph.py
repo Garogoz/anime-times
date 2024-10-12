@@ -3,7 +3,43 @@ import json
 from flask_caching import Cache
 from functools import wraps
 import time
+import bleach
+from datetime import datetime
 
+# List of allowed tags and attributes
+allowed_tags = [
+    'a', 'abbr', 'acronym', 'b', 'blockquote', 'code', 'em', 'i', 'li', 'ol', 'strong', 'ul', 'p'
+]
+allowed_attributes = {
+    'a': ['href', 'title'],
+    'abbr': ['title'],
+    'acronym': ['title']
+}
+#To avoid errors while rendering html due to bad tags
+def sanitize_html(raw_data):
+    clean_data = bleach.clean(raw_data, tags=allowed_tags, attributes=allowed_attributes)
+    return clean_data
+
+#get today's date
+def get_date() -> dict:
+    current_date = datetime.now()
+    month = current_date.month
+    if 3 <= month <= 5:
+        season = 'spring'
+    elif 6 <= month <= 8:
+        season = 'summer'
+    elif 9 <= month <= 11:
+        season = 'autumn'
+    else:
+        season = 'winter'
+    dict_date = {
+        'year': current_date.year,
+        'month': month,
+        'day': current_date.day,
+        'season': season
+    }
+    return dict_date
+    
 # Configure the cache
 cache = Cache(config={'CACHE_TYPE': 'simple'})
 
@@ -13,6 +49,8 @@ def jprint(obj):
     # create a formatted string of the Python JSON object
     text = json.dumps(obj, sort_keys=True, indent=4)
     print(text)
+
+
 
 # handle errors
 def handle_error(status_code: int, response_headers):
@@ -58,6 +96,14 @@ def struct_data_multiple(data):
     genres = data['GenreCollection']
     
     for anime in animes: 
+        try:
+          if anime['description']:
+              anime['description'] = sanitize_html(anime['description'])
+        except KeyError:
+            pass
+        except Exception as e:
+            print("Something went wrong with the description sanitazer", e)
+        
         anime_data.append(anime)
         
     info = {

@@ -72,6 +72,7 @@ footer {
 main {
     margin: 2em 3%;
 }
+
 .getseason {
     margin-top: 1rem;
     display: flex;
@@ -201,7 +202,7 @@ main {
 
 @media only screen and (max-width: 1270px) {
     .animeshows {
-        width: 310px;
+        width: 330px;
         height: auto;
         max-height: 250px;
     }
@@ -236,7 +237,7 @@ main {
         
     }
 }
-@media only screen and (max-width: 760px) {
+@media only screen and (max-width: 800px) {
     .animeshows {
         width: 100%;
         min-width: 360px;

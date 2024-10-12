@@ -19,7 +19,8 @@ def favicon():
 
 @app.route('/seasons')
 def seasons():
-    return redirect(f'/winter/2024/TV')
+    today = graph.get_date()
+    return redirect(f'/{today.get("season")}/{today.get("year")}/TV')
 
 @app.route('/anime', methods=['GET'])
 def anime():
@@ -72,6 +73,8 @@ def anime_season(season, year, format='TV', page=0):
         "format": format
     }
     SEASONS = ['WINTER', 'SPRING', 'SUMMER', 'FALL']
+    FORMATS = ['TV', 'MOVIE', 'OVA', 'TV_SHORT', 'ONA', 'SPECIAL']
+    date = graph.get_date()
     if page is None:
         print('page is none')
         return redirect(f'/{season}/{year}/{format}/1')
@@ -81,7 +84,7 @@ def anime_season(season, year, format='TV', page=0):
     title = f'{season.capitalize()} {year}'
     if cached_data:
         print("CACHED!")
-        return render_template('season.html', title=title, data=cached_data, form_data=form_data, seasons=SEASONS)
+        return render_template('season.html', title=title, data=cached_data, form_data=form_data, seasons=SEASONS, formats=FORMATS, date=date)
 
     # If data is not cached, retrieve it and cache it
     print("NOT CACHED!!!")
@@ -93,7 +96,7 @@ def anime_season(season, year, format='TV', page=0):
     }
     season_data = graph.get_anime_season(variables)
     cache.set(cache_key, season_data)
-    return render_template('season.html',title=title, data=season_data, form_data=form_data)
+    return render_template('season.html',title=title, data=season_data, form_data=form_data, seasons=SEASONS, formats=FORMATS, date=date)
 
 @app.route('/gotoseason', methods=['POST'])
 def gotoseason():

@@ -11,50 +11,54 @@
         <div class="seasonoption">
             <label for="season">Season</label>
             <select name="season" id="season" required>
-                <!--
+                
                 {% if form_data['season'] %}
                     <option value="{{ form_data['season'] }}" selected>{{ form_data['season'].lower().capitalize() }}</option>
+                    {% for season in seasons %}
+                        {% if season != form_data['season'].upper() %}
+                            <option value="{{ season.lower() }}" >{{ season.lower().capitalize() }}</option>
+                        {% endif %}
+                    {% endfor %}
+
                 {% else %}
                     <option value="" disabled selected>Select Season</option>
                 {% endif %}
-                -->
-                <option value="winter">Winter</option>
-                <option value="spring">Spring</option>
-                <option value="summer">Summer</option>
-                <option value="fall">Fall</option>
+                
             </select>
         </div>
         <div class="seasonoption">
             <label for="yearint">Year</label>
             <select name="yearint" id="yearint" required>
-                <!--
+                
                 {% if form_data['year'] %}
-                    <option value="{{ form_data['year'] }}" selected>{{ form_data['year'] }}</option>
+                    {% for n in range(date['year'] + 1, 1949, -1) %}
+                        <option value="{{ n }}" {% if n == form_data['year'] %}selected{% endif %}>{{ n }}</option>
+                    {% endfor %}
                 {% else %}
                     <option value="" disabled selected>Select Year</option>
+                    {% for n in range(date['year'] + 1, 1949, -1) %}
+                        <option value="{{ n }}">{{ n }}</option>
+                    {% endfor %}
                 {% endif %}
-                -->
-                {% for n in range(2024, 1949, -1) %}
-                    <option value="{{ n }}">{{ n }}</option>
-                {% endfor %}
+                
+                
             </select>
         </div>
         <div class="seasonoption">
             <label for="format">Format</label>
             <select name="format" id="format">
-                <!--
-                {% if form_data['format'] %}
-                    <option value="{{ form_data['format'] }}" selected>{{ form_data['format'] }}</option>
+                
+                {% if form_data['season'] %}
+                    <option value="{{ form_data['format'] }}" selected>{{ form_data['format'].lower().capitalize() }}</option>
                 {% else %}
                     <option value="" selected>Select Format</option>
                 {% endif %}
-                -->
-                <option value="TV">TV</option>
-                <option value="MOVIE">Movies</option>  
-                <option value="OVA">OVA</option>
-                <option value="TV_SHORT">TV Short</option>
-                <option value="ONA">ONA (Original Net Animation)</option>
-                <option value="SPECIAL">Special</option>    
+                
+                {% for format in formats %}
+                        {% if format != form_data['format'].upper() %}
+                            <option value="{{ format.upper() }}" >{{ format.lower().capitalize() }}</option>
+                        {% endif %}
+                    {% endfor %}  
             </select>
         </div>
         <div class="seasonoption submitbutton-div " id="button-season">
@@ -68,7 +72,7 @@
         
             <div class="animeshows">
                 <div class="animecontent">
-                    <img src="{{anime['coverImage']['large']}}" alt="anime cover image">
+                    <a  href="/anime/{{anime['id']}}"><img src="{{anime['coverImage']['large']}}" alt="anime cover image"></a>
                     <div class="animeinfo">
                         <div class="animetitle">
                             <a class="anchorstyle" href="/anime/{{anime['id']}}"><h6>{{anime['title']['romaji']}}</h6></a>
