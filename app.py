@@ -24,24 +24,13 @@ def seasons():
 @app.route('/anime', methods=['GET'])
 def anime():
     graph.time.sleep(0.3)
-    title = request.args.get('title')
-    genre = request.args.get('selectgenre')
+    title = request.args.get('title') or None
+    genre = request.args.get('selectgenre') or None
     page = request.args.get('page', default=1, type=int)
-    
-    if not title and not genre:
-        # get all animes and sort by popularity
-        data = graph.get_anime_by_title(None, None, page)
-        print('1 working')
-    elif title and not genre:
-        data = graph.get_anime_by_title(title, None, page)
-        print('2 working')
-    elif not title and genre:
-        # get all animes by genre and sort by popularity
-        data = graph.get_anime_by_genre(genre, page)
-        print('3 working')
-    elif title and genre:
-        data = graph.get_anime_by_title(title, genre, page)
-        print('4 working')
+    format = request.args.get('formatsearch') or None
+    sort = request.args.get('sort') or 'TRENDING_DESC'
+
+    data = graph.get_anime_search(title, genre, sort, format, page)
     
      # Construct the URL dynamically based on the parameters with values
     url_params = {}
@@ -49,15 +38,19 @@ def anime():
         url_params['title'] = title
     if genre:
         url_params['selectgenre'] = genre
+    if sort:
+        url_params['sort'] = sort
+    if format:
+        url_params['format'] = format
 
      # Build the URL query string
     url_query_string = '&'.join([f"{key}={value}" for key, value in url_params.items()])
     url = f"/anime?{url_query_string}" if url_query_string else "/anime"
 
-    prev_page_url = url_for('anime', title=title, selectgenre=genre, page=page-1) if page > 1 else None
-    next_page_url = url_for('anime', title=title, selectgenre=genre, page=page+1) if data['page_info']['hasNextPage'] else None
+    prev_page_url = url_for('anime', title=title, selectgenre=genre, sort=sort, format=format, page=page-1) if page > 1 else None
+    next_page_url = url_for('anime', title=title, selectgenre=genre, sort=sort, format=format, page=page+1) if data['page_info']['hasNextPage'] else None
     
-    return render_template('anime.html', title="Search", data=data, prev_page_url=prev_page_url, next_page_url=next_page_url, url=url)
+    return render_template('anime.html', title="Search", data=data, url_params=url_params, prev_page_url=prev_page_url, next_page_url=next_page_url, url=url)
 
 @app.route('/anime/<int:id>', methods=['GET'])
 def gotoanime(id: int):
@@ -69,7 +62,7 @@ def gotoanime(id: int):
     
         return render_template('animeinfo.html', title="Anime", data=data, banner=banner)
 
-
+@app.route('/<season>/<int:year>/', methods=['GET'])
 @app.route('/<season>/<int:year>/<format>', methods=['GET'])
 @app.route('/<season>/<int:year>/<format>/<int:page>', methods=['GET'])
 def anime_season(season, year, format='TV', page=0):
@@ -110,9 +103,8 @@ def gotoseason():
         format = request.form['format']
         return redirect(f'{season}/{year}/{format}')
     except:
-        return error("Missing input in format")
+        return  404  #fix
 
-    
-@app.route('/404', methods=['GET'])
-def error(error: str="Not Found"):
-     return render_template("error.html", error=error)
+@app.errorhandler(404)
+def page_not_found(error):
+    return render_template('error.html'), 404

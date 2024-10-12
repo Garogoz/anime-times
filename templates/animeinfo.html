@@ -46,20 +46,32 @@
                 <div class="animeinfospecs"> 
                     {% if data['type'] == 'MANGA' %}
                         <span class="darkspan">Chapters: </span>
-                        {{ data['chapters'] }} 
+                        {% if data['chapters']  %}
+                            {{ data['chapters'] }}
+                        {%else%}
+                            No info
+                        {%endif%} 
                     {% else %}
                         <span class="darkspan">Episodes: </span>
-                        {{ data['episodes'] }}
+                        {% if data['episodes']  %}
+                            {{ data['episodes'] }}
+                        {%else%}
+                            No info
+                        {%endif%}
                     {% endif %}
                 </div>
                 <div class="animeinfospecs"> 
                     <span class="darkspan">Started airing: </span>
-                    {{data['startDate']['day']}}-{{data['startDate']['month']}}-{{data['startDate']['year']}}
+                    {% if data['startDate']['day'] is none and data['startDate']['month'] is none and data['startDate']['year'] is none%}
+                        No info
+                    {%else%}
+                        {{data['startDate']['day']}}-{{data['startDate']['month']}}-{{data['startDate']['year']}}
+                        {%endif%}
                 </div>
                 <div class="animeinfospecs"> 
                     <span class="darkspan">Ended airing: </span>
                     {% if not data['endDate']['day'] or not data['endDate']['month'] or not data['endDate']['year']%}
-                        Ongoing
+                        No info
                     {% else %}
                         {{data['endDate']['day']}}-{{data['startDate']['month']}}-{{data['endDate']['year']}}
                     {% endif %}
@@ -90,17 +102,27 @@
                     <h4>Genres</h4>
                     <div class="animegenres section-part">
                         {% for genre in data['genres'] %}
-                        <div class="tag-div">
-                            <span class="tag-content purple">{{genre}}</span>
-                        </div>
+                        <a href="/anime?selectgenre={{genre}}">
+                            <div class="tag-div">
+                                <span class="tag-content purple">{{genre}}</span>
+                            </div>
+                        </a>
                         {% endfor %}
                     </div>
                 </div>
                 <div class="animeseason section-part">
                     <h4>Season</h4>
+                    {% if data['season'] is none or data['seasonYear'] is none %}
                     <div class="tag-div">
-                        <span class="tag-content blue">{{data['season']}} {{data['seasonYear']}}</span>
+                        <span class="tag-content blue">NO INFO</span>
                     </div>
+                    {%else%}
+                        <a href="/{{data['season'].lower()}}/{{data['seasonYear']}}">
+                            <div class="tag-div">
+                                <span class="tag-content blue">{{data['season']}} {{data['seasonYear']}}</span>
+                            </div>
+                        </a>
+                    {%endif%}
                 </div>
                 <div class="animetype section-part">
                     <h4>Type</h4>
@@ -111,7 +133,11 @@
                 <div class="animeformat section-part">
                     <h4>Format</h4>
                     <div class="tag-div">
-                        <span class="tag-content">{{data['format']}}</span>
+                        {% if not data['format'] %}
+                            <span class="tag-content">NO INFO</span>
+                        {% else %}
+                            <span class="tag-content">{{data['format']}}</span>
+                        {% endif %}
                     </div>
                 </div>
                 <div class="animestatus section-part">
@@ -134,9 +160,15 @@
                 </div>
                 <div class="score">
                     <h4>Score</h4>
+                    {% if data['averageScore'] is not none %}
                     <div class="tag-div">
                         <span class="tag-content">{{data['averageScore']/10}}</span>
                     </div>
+                    {%else%}
+                    <div class="tag-div">
+                        <span class="tag-content">NO INFO</span>
+                    </div>
+                    {% endif %}
                 </div>
             </section>
         </div>
@@ -152,9 +184,13 @@
                         <div class="relationinfo">
                             <h6>{{anime['node']['title']['romaji']}}</h6>
                             {% if anime['node']['format'] == 'MANGA' %}
-                                <span>{{ anime['node']['chapters'] }} chapters</span>
+                                {% if anime['node']['chapters'] is not none %}
+                                    <span>{{ anime['node']['chapters'] }} chapters</span>
+                                {% endif %}
                             {% else %}
-                                <span>{{ anime['node']['episodes'] }} episodes</span>
+                                {% if anime['node']['episodes'] is not none %}
+                                    <span>{{ anime['node']['episodes'] }} episodes</span>
+                                {% endif %}
                             {% endif %}
                             <hr>
                             <span>{{anime['node']['format']}}</span>

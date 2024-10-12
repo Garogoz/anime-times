@@ -14,38 +14,85 @@
             {% endfor %}
         </select>
         <input type="hidden" name="page" value="{{ page }}">
+        <select name="formatsearch" id="formatsearch" class="sort inputradius button-search">
+            <option value="">All</option>
+            <option value="TV">TV</option>
+            <option value="MOVIE">Movies</option>  
+            <option value="OVA">OVA</option>
+            <option value="TV_SHORT">TV Short</option>
+            <option value="ONA">ONA (Original Net Animation)</option>
+            <option value="SPECIAL">Special</option>  
+        </select>
+        <select name="sort" id="sort" class="sort inputradius button-search">
+            <option value="TRENDING_DESC" >Trending</option>
+            <option value="POPULARITY_DESC">Popularity</option>
+            <option value="SCORE_DESC" >Score</option>
+        </select>
         <button type="submit" class="submitbutton button-search">Search</button>
     </form>
+    <div class="searchresults">
+        {% if url_params['title'] or url_params['selectgenre'] or url_params['format'] or url_params['sort']%}
+            <span>Results for: </span>
+            {% if url_params['title'] %}
+                <span class="tag-content yellow fontsizetag">{{url_params['title']}}</span>
+            {%endif%}
+            {% if url_params['selectgenre'] %}
+                <span class="tag-content blue fontsizetag">{{url_params['selectgenre']}}</span>
+            {%endif%}
+            {% if url_params['format'] %}
+                <span class="tag-content green fontsizetag">{{url_params['format']}}</span>
+            {%endif%}
+            {% if url_params['sort'] %}
+                {% if url_params['sort'] == 'TRENDING_DESC' %}
+                    <span class="tag-content red fontsizetag">Trending</span>
+                {% elif url_params['sort'] == 'POPULARITY_DESC' %}
+                    <span class="tag-content red fontsizetag">Popularity</span>
+                {% elif url_params['sort'] == 'SCORE_DESC' %}
+                    <span class="tag-content red fontsizetag">Score</span>
+                {%endif%}
+            {%endif%}
+        {%endif%}
+    </div>
     <div id="anime-search">
         {% for anime in data['anime_data'] %}
         
             <div class="animeresults resize-600w resize-600h">
                 <div class="animecontent resize-600w resize-600h">
-                    <a href="anime/{{ anime['id'] }}">
-                        <img src="{{anime['coverImage']['large']}}" alt="anime cover image" class="imgsearch resize-600w resize-600h">
+                    <a class="anchorstyle" href="anime/{{ anime['id'] }}">
+                        <div class="imageanimesearch">
+                            <img src="{{anime['coverImage']['large']}}" alt="anime cover image" class="imgsearch resize-600w resize-600h">
+                            <div class="infocontainer">
+                                <div class="animesearchinfo yearandformat ">
+                                    {% if anime['seasonYear'] %}
+                                        <div class="yearinfo">
+                                            <p>{{anime['seasonYear']}}</p>
+                                        </div>
+                                    {% endif %}
+                                    {% if anime['format'] %}
+                                        <div class="formatinfo">
+                                            <p>{{anime['format']}}</p>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div class="animesearchinfo ">
+                                    {% if anime['popularity'] %}
+                                        <div class="popularity">
+                                            <p>{{anime['popularity']}}</p>
+                                        </div>
+                                    {% endif %}
+                                    {% if anime['averageScore'] %}
+                                        <div class="averagescore">
+                                            <p>{{anime['averageScore']/10}}</p>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
                         <div class="overlay-text resize-600w ">
                             <h6>{{anime['title']['romaji']}}</h6>
                         </div>
-                        <div class="hover-text resize-600w resize-600h">
-                            <!--
-                            <div class="hover-specs">
-                                <h6>{{anime['episodes']}} Episodes</h6>
-                            </div>
-                            -->
-                        </div>
-                        <div class="animesearchinfo">
-                            <p>{{anime['seasonYear']}}</p>
-                            
-                        </div>
                     </a>
                 </div>
-                <!--
-                <div class="extras">
-                    {% for genre in anime['genres'] %}
-                        <span class="genres">{{genre}}</span>
-                    {% endfor %}
-                </div>
-                -->
             </div>
         
         {% endfor %}
@@ -61,7 +108,6 @@
         {% endif %}
     </div>
     
-    <div>{{data['page_info']['lastPage']}}</div>
     
 {% endblock %}
 <!-- 

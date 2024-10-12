@@ -21,7 +21,7 @@ def handle_error(status_code: int, response_headers):
     
     print(f"ERROR retrieving data. Status Code: {status_code}")
 
-# Function to make GraphQL queries
+
 def make_graphql_query(query: str, variables: dict = None, max_retries: int = 3, retry_delay: int = 5):
     for attempt in range(max_retries): 
         try:
@@ -66,16 +66,7 @@ def struct_data_multiple(data):
 	'genres': genres
 	}
     return info 
-"""
-def get_genres():
-    query = '''
-    query{
-      GenreCollection
-    }
-'''
-    data = make_graphql_query(query, None)
-    return data
-"""
+
 def get_anime_season_data(variables: dict):
       
     # Here we define our query as a multi-line string
@@ -143,9 +134,9 @@ def get_anime_season(variables: dict, cache_key, timeout):
     return get_anime_season_data(variables)
 
 
-def get_anime_by_title(search: str, genre: str = None, page: int = 1, perPage: int = 25):
+def get_anime_search(search: str = None, genre: str = None, sort: str = None, format: str = None, page: int = 1, perPage: int = 25):
     query = '''
-	query ($id: Int, $page: Int, $perPage: Int, $search: String, $genre: String) {
+	query ($id: Int, $page: Int, $perPage: Int, $search: String, $genre: String, $format: MediaFormat, $sort: [MediaSort]) {
 		Page (page: $page, perPage: $perPage) {
 			pageInfo {
 				total
@@ -154,20 +145,20 @@ def get_anime_by_title(search: str, genre: str = None, page: int = 1, perPage: i
 				hasNextPage
 				perPage
 			}
-			media (id: $id, search: $search, genre: $genre, sort: POPULARITY_DESC) {
+			media (id: $id, search: $search, genre: $genre, format: $format, sort: $sort) {
 				id
 				title {
 					romaji
 					english
 				}
 				seasonYear
+        popularity
+        averageScore
 				episodes
 				type
+        format
 				coverImage {
-				extraLarge
 				large
-				medium
-				color
 			}
 			}
 		}
@@ -179,67 +170,16 @@ def get_anime_by_title(search: str, genre: str = None, page: int = 1, perPage: i
         'genre': genre,
         "page": page,
         "perPage": perPage,
+        'sort': sort,
     }
-    if genre is not None:
-        variables['genre'] = genre
+    if format:
+        variables['format'] = format
 
     data = make_graphql_query(query, variables)
     
     return struct_data_multiple(data)
 
-def get_anime_by_genre(genre: str, page: int = 1, perPage: int = 20):
-    query = '''
-    query ($genre: String, $page: Int, $perPage: Int){
-  	Page (page: $page, perPage: $perPage) {
-		pageInfo {
-          total
-          currentPage
-          lastPage
-          hasNextPage
-          perPage
-			}
-  
-        media(genre: $genre, type: ANIME, sort: POPULARITY_DESC) {
-          id
-          title {
-            romaji
-            english
-          }
-          startDate {
-            year
-            month
-            day
-          }
-          episodes
-          season
-          seasonYear
-          type
-          duration
-          genres
-          averageScore
-          popularity
-          coverImage {
-            extraLarge
-            large
-            medium
-            color
-          }
-          bannerImage
-          description
-        }
-  
-      }
-      GenreCollection
-      
-}
-    '''
-    variables = {
-        'genre': genre,
-        'page': page
-	}
-    data = make_graphql_query(query, variables)
-    
-    return struct_data_multiple(data)
+
     
 def get_anime_info(id: int):
     query = '''

@@ -65,7 +65,7 @@
                     <img src="{{anime['coverImage']['large']}}" alt="anime cover image">
                     <div class="animeinfo">
                         <div class="animetitle">
-                            <h6>{{anime['title']['romaji']}}</h6>
+                            <a class="anchorstyle" href="/anime/{{anime['id']}}"><h6>{{anime['title']['romaji']}}</h6></a>
                         </div>
                         <hr>
                         <div class="animedescription">
@@ -75,7 +75,7 @@
                 </div>
                 <div class="extras">
                     {% for genre in anime['genres'] %}
-                        <div class="tag-div"><a href="/anime?selectgenre={{genre}}"><span class="genres purple">{{genre}}</span></a></div>
+                        <div class="tag-div"><a class="anchorstyle" href="/anime?selectgenre={{genre}}"><span class="genres purple">{{genre}}</span></a></div>
                     {% endfor %}
                 </div>
             </div>
