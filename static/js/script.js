@@ -2,7 +2,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
     console.log("DOM fully loaded and parsed");
 
-    // Get all buttons with the class 'addbutton'
     const buttons = document.querySelectorAll('.addbutton');
 
     // Function to check if ID is in local storage array
@@ -46,7 +45,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
              if (animeIds.includes(animeId)) {
                 // Remove the ID from the array
                 animeIds = animeIds.filter(id => id !== animeId);
-                // Remove the 'clicked' class
+                // Change classes
                 this.classList.remove('redbutton');
                 this.classList.add('greenbutton');
                 this.innerHTML = "Add"

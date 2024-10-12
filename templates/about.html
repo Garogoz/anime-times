@@ -1,0 +1,62 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    About
+{% endblock %}
+
+{% block main %}
+<div class="firstcontainer">
+    <div class="leftside">
+    <h2>Anime Times</h2>
+    <p>Welcome to Anime Times, your ultimate tool for keeping up with your favorite anime series! 
+    This web application allows you to create a personalized schedule to follow the weekly airing times of various anime. 
+    Additionally, you can search for anime titles and get detailed information about each show, including summaries, episode lists, and airing dates.</p>
+    <h3>Key Features:</h3>
+    <ul>
+        <li>Weekly Schedule: Easily track the airing times of your favorite anime series throughout the week.</li>
+        <li>Anime Searcher: Find information on any anime with a simple search function</li>
+        <li>Detailed Anime Info: Access comprehensive details about each anime, including genre, release date, synopsis, and more.</li>
+    </ul>
+    <p>Anime Times is designed to enhance your anime-watching experience by ensuring you never miss an episode.
+        Whether you're a casual viewer or a dedicated otaku, this app is tailored to meet your needs.</p>
+    </div>
+    <div class="rightside">
+        <h3>Technologies Used</h3>
+        <ul>
+            <div class="technologiesdesc">
+            <li>
+                <div class="technologiesdesc">
+                    <img src="{{ url_for('static', filename='logos/python-logo-only.svg') }}" alt="" class="logoimg techsimg" id="logopython">
+                    <b>Flask</b> <p>A lightweight WSGI web application framework in Python that powers the backend of the app.</p>
+                </div>
+            </li>
+            <li>
+                <div class="technologiesdesc">
+                    <img src="{{ url_for('static', filename='logos/html5-logo-31816.png') }}" alt="" class="logoimg techsimg" id="logohtml"><b>HTML/CSS/JavaScrtipt</b> <p>For building the structure of the web pages, applying styles to create an appealing layout,
+                 and adding interactivity and dynamic content</p>
+                 </div>
+            </li>
+            <li>
+                <div class="technologiesdesc">
+                    <a href="https://github.com/AniList/ApiV2-GraphQL-Docs" target="_blank"><img class="logoimg techsimg" src="{{ url_for('static', filename='logos/icon.svg') }}" alt="AniList logo"></a><b>AniList GraphQL</b> <p>Used to fetch up-to-date information about various anime series.</p>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="firstcontainer">
+    <div class="leftside">
+        <h2>About the Developer</h2>
+        <p>Hello! My name is Gabriel, and I'm the creator of Anime Times.
+            This web application is my final project for the CS50 course. I have a passion for both programming and anime, 
+            and I wanted to combine these interests to create something that fellow anime fans would find useful.</p>
+        <h3>Contact Information:</h3>
+        <div class="contactinfo">
+            <a href="mailto:gaborodus@gmail.com" target="_blank" class="anchorstyle"><img src="{{ url_for('static', filename='logos/Gmail_Icon.png') }}" alt="gmail logo" class="logoimg contactlogo"></a>
+            <a class="anchorstyle" href="https://github.com/Garogoz"  target="_blank"><img class="logoimg contactlogo" id="githublogo" src="{{ url_for('static', filename='logos/512x512-logo-27148.png') }}" alt="Github logo"></a>
+        </div>
+        <br>
+        <p>Thank you for visiting Anime Times! I hope you find it helpful and enjoy using it as much as I enjoyed creating it.</p>
+    </div>
+</div>
+{% endblock %}
