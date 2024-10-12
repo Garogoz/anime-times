@@ -1,7 +1,7 @@
 html, body {
-    font-family: 'Open Sans', Sans-serif!important;
+    font-family: 'Open Sans', Sans-serif;
     height: 100%;
-    background-color: #121212 !important;
+    background-color: #121212;
     padding: 0;
     height: 100%;
 }
@@ -221,7 +221,6 @@ main {
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding-top: 0.5rem;
     margin-top: 0.5em;
     width: 100%;
 }
@@ -265,7 +264,7 @@ main {
         flex-direction: column;
     }
     .getseason {
-        
+        margin-right: 0em;
         flex-wrap: wrap;
     }
     .seasonoption{
@@ -296,6 +295,7 @@ main {
     .animecontent {
         width:100%;
     }
+    
     .animeinfo {
         width: 100%;
     }
@@ -521,6 +521,7 @@ main {
     display: flex;
     align-items: center;
     justify-content: center;
+    text-align: center;
 }
 .pages a {
     color: inherit!important;
@@ -976,7 +977,7 @@ section{
 .firstcontainer {
     color: white;
     display: flex;
-    padding: 1em 5em;
+    padding: 1em 5em 0 5em;
 }
 .firstcontainer div {
     background-color: #262626;
@@ -985,10 +986,23 @@ section{
 .rightside {
     margin-left: 1em;
     padding: 1em;
+    flex-basis: 40%;
 }
 .leftside {
     padding: 1em;
     height: fit-content;
+    flex-basis: 100%;
+}
+.h3technologies {
+    text-align: center;
+}
+.technologiesdiv {
+    display: flex;
+    flex-direction: row;
+    margin-top: 1.5em;
+}
+.technologiesdesc { 
+    margin:0 1em;
 }
 .logoimg {
     width: 50px;
@@ -1008,6 +1022,30 @@ section{
 .techsimg {
     margin-right: 0.5em;
 }
+.lastcontainer {
+    flex-basis: 100%;
+    display: flex;
+    
+}
+.imgfill {
+    height: auto; 
+    display: block;
+    margin: 0 auto;
+    width: 126px; 
+    height: 279px; 
+}
+.anyaa {
+    display: flex;
+}
+#luffyimg {
+    
+}
+#gojoimg {
+    
+}
+#anyaimg {
+    
+}
 @media only screen and (max-width: 1200px) {
     .firstcontainer {
         padding: 0 0 1.5em 0;
@@ -1023,4 +1061,20 @@ section{
     .rightside {
         margin-left: 0;
     }
+}
+@media only screen and (max-width: 700px) {
+    .technologiesdiv {
+        flex-direction: column;
+    }
+    
+}
+.display-error {
+    color: white;
+}
+.anya-error {
+    display: flex;
+    height: auto;
+    width: 500px;
+    margin-top: 3em;
+    max-width: 100%;
 }

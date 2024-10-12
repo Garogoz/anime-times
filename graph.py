@@ -326,7 +326,13 @@ def get_anime_info(id: int):
 
     data = make_graphql_query(query, variables)
 
-    return data['Media']
+    try:
+      return data['Media']
+    except TypeError as e:
+        print(f"Error: {e}")
+        return None
+        
+        
  
 def getAnimesInSchedule(idlist: list):
     

@@ -2,6 +2,11 @@
 function sendLocalStorageData() {
     let animeIds = JSON.parse(localStorage.getItem('animeIds')) || [];
 
+    animeIds = animeIds.filter(anime => Number.isInteger(parseInt(anime)));
+
+    localStorage.setItem('animeIds', JSON.stringify(animeIds));
+    
+
     fetch('/process_local_storage', {
         method: 'POST',
         headers: {

@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, jsonify, request, url_for
+from flask import Flask, render_template, redirect, jsonify, request, url_for, abort
 from graph import cache
 import graph
 
@@ -11,11 +11,7 @@ cache.init_app(app) # initialize cache in app
 @app.route('/')
 def index():
     return redirect("/anime")
-        #return redirect('/winter/2024')
-
-'''@app.route('/favicon.ico')
-def favicon():
-    return None'''
+        
 
 @app.route('/seasons')
 def seasons():
@@ -57,7 +53,7 @@ def anime():
 def gotoanime(id: int):
     data = graph.get_anime_info(id)
     if data is None:
-        return render_template('error.html', "Anime not found")
+        return render_template('error.html', error = "Anime not found")
     else:
         banner = data['bannerImage']
     
@@ -74,6 +70,10 @@ def anime_season(season, year, format='TV', page=0):
     }
     SEASONS = ['WINTER', 'SPRING', 'SUMMER', 'FALL']
     FORMATS = ['TV', 'MOVIE', 'OVA', 'TV_SHORT', 'ONA', 'SPECIAL']
+    if form_data["season"].upper() not in SEASONS:
+        abort(404, description="Invalid season")
+    if form_data["format"].upper() not in FORMATS:
+        abort(404, description="Invalid format")
     date = graph.get_date()
     if page is None:
         print('page is none')
@@ -107,6 +107,7 @@ def gotoseason():
         return redirect(f'{season}/{year}/{format}')
     except:
         return  404  #fix
+    
 @app.route ('/schedule', methods=['GET'])
 def schedule():
         return render_template('schedule.html')
@@ -132,4 +133,4 @@ def about():
 
 @app.errorhandler(404)
 def page_not_found(error):
-    return render_template('error.html'), 404
+    return render_template('error.html', error= "NOT FOUND "), 404

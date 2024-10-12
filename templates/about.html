@@ -21,31 +21,6 @@
         Whether you're a casual viewer or a dedicated otaku, this app is tailored to meet your needs.</p>
     </div>
     <div class="rightside">
-        <h3>Technologies Used</h3>
-        <ul>
-            <div class="technologiesdesc">
-            <li>
-                <div class="technologiesdesc">
-                    <img src="{{ url_for('static', filename='logos/python-logo-only.svg') }}" alt="" class="logoimg techsimg" id="logopython">
-                    <b>Flask</b> <p>A lightweight WSGI web application framework in Python that powers the backend of the app.</p>
-                </div>
-            </li>
-            <li>
-                <div class="technologiesdesc">
-                    <img src="{{ url_for('static', filename='logos/html5-logo-31816.png') }}" alt="" class="logoimg techsimg" id="logohtml"><b>HTML/CSS/JavaScrtipt</b> <p>For building the structure of the web pages, applying styles to create an appealing layout,
-                 and adding interactivity and dynamic content</p>
-                 </div>
-            </li>
-            <li>
-                <div class="technologiesdesc">
-                    <a href="https://github.com/AniList/ApiV2-GraphQL-Docs" target="_blank"><img class="logoimg techsimg" src="{{ url_for('static', filename='logos/icon.svg') }}" alt="AniList logo"></a><b>AniList GraphQL</b> <p>Used to fetch up-to-date information about various anime series.</p>
-                </div>
-            </li>
-        </ul>
-    </div>
-</div>
-<div class="firstcontainer">
-    <div class="leftside">
         <h2>About the Developer</h2>
         <p>Hello! My name is Gabriel, and I'm the creator of Anime Times.
             This web application is my final project for the CS50 course. I have a passion for both programming and anime, 
@@ -59,4 +34,34 @@
         <p>Thank you for visiting Anime Times! I hope you find it helpful and enjoy using it as much as I enjoyed creating it.</p>
     </div>
 </div>
+<div class="anyaa">
+    <img src="{{ url_for('static', filename='/img/Anya_Forger_Anime_png.png') }}" alt="" id="anyaimg" class="imgfill">
+</div>
+
+<div class="firstcontainer">
+    <div class="lastcontainer">
+    <div class="leftside">
+        <h3 class="h3technologies">Technologies Used</h3>
+            <div class="technologiesdiv">
+
+                <div class="technologiesdesc">
+                    <img src="{{ url_for('static', filename='logos/python-logo-only.svg') }}" alt="" class="logoimg techsimg" id="logopython">
+                    <b>Flask</b> <p>A lightweight WSGI web application framework in Python that powers the backend of the app.</p>
+                </div>
+    
+
+                <div class="technologiesdesc">
+                    <img src="{{ url_for('static', filename='logos/html5-logo-31816.png') }}" alt="" class="logoimg techsimg" id="logohtml"><b>HTML/CSS/JavaScrtipt</b> <p>For building the structure of the web pages, applying styles to create an appealing layout,
+                 and adding interactivity and dynamic content</p>
+                 </div>
+    
+
+                <div class="technologiesdesc">
+                    <a href="https://github.com/AniList/ApiV2-GraphQL-Docs" target="_blank"><img class="logoimg techsimg" src="{{ url_for('static', filename='logos/icon.svg') }}" alt="AniList logo"></a><b>AniList GraphQL</b> <p>Used to fetch up-to-date information about various anime series.</p>
+                </div>
+        </div>
+    </div>
+</div>
+
+
 {% endblock %}
