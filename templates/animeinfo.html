@@ -1,9 +1,12 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    {{ title }}
+    {{data['title']['romaji']}}
 {% endblock %}
 
 {% block main %}
-
+    <div class="container">
+        <h2>{{data['title']['romaji']}}</h2>
+    </div>
+    
 {% endblock %}

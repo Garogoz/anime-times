@@ -28,9 +28,8 @@ def anime():
 
 @app.route('/anime/<int:id>', methods=['GET'])
 def gotoanime(id: int):
-    
-    
-    return render_template('animeinfo.html', title="Anime")
+    data = graph.get_anime_info(id)
+    return render_template('animeinfo.html', title="Anime", data=data)
 
 
 @app.route('/<season>/<int:year>/<format>', methods=['GET'])

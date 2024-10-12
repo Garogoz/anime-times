@@ -150,7 +150,7 @@ query ($id: Int, $page: Int, $perPage: Int, $search: String) {
 def get_anime_info(id: int):
     query = '''
     query ($id: Int){
-        Media(id: $id) {
+        Media(id: $id, type: ANIME) {
           id
           title {
             romaji
@@ -179,7 +179,6 @@ def get_anime_info(id: int):
           description
         }
       }
-    }
     '''
     variables = {
         'id': id,
@@ -190,4 +189,5 @@ def get_anime_info(id: int):
         data = response.json()['data']['Media']
         return data
     else:
-        print("f")
+        print(response.status_code)
+        return 0

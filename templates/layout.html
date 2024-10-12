@@ -21,11 +21,15 @@
             <a class="nav-item nav-link active" href="/seasons">Seasons<span class="sr-only">(current)</span></a>
             <a class="nav-item nav-link" href="#">Schedule</a>
             <a class="nav-item nav-link" href="/anime">Search Anime</a>
-            <a class="nav-item nav-link" href="#">About</a>
-            
+            <a class="nav-item nav-link push" href="#">About</a>
+            <form action="/anime" method="get" class="searchanime push" id="globalsearch"">
+              <input type="text" name="title" autocomplete="off" placeholder="Anime">
+              <button type="submit">Search</button>
+            </form>
           </div>
         </div>
       </nav>
+      
     </header>
     <main>
        {% block main %}{% endblock %}

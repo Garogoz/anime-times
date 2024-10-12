@@ -14,14 +14,23 @@
         
             <div class="animeresults">
                 <div class="animecontent">
-                    <img src="{{anime['coverImage']['large']}}" alt="anime cover image" class="imgsearch">
-                    <div class="overlay-text">
-                        <h6>{{anime['title']['romaji']}}</h6>
-                    </div>
-                    <div class="animesearchinfo">
-                        <p>{{anime['seasonYear']}}</p>
-                        
-                    </div>
+                    <a href="anime/{{ anime['id'] }}">
+                        <img src="{{anime['coverImage']['large']}}" alt="anime cover image" class="imgsearch">
+                        <div class="overlay-text">
+                            <h6>{{anime['title']['romaji']}}</h6>
+                        </div>
+                        <div class="hover-text">
+                            <!--
+                            <div class="hover-specs">
+                                <h6>{{anime['episodes']}} Episodes</h6>
+                            </div>
+                            -->
+                        </div>
+                        <div class="animesearchinfo">
+                            <p>{{anime['seasonYear']}}</p>
+                            
+                        </div>
+                    </a>
                 </div>
                 <div class="extras">
                     {% for genre in anime['genres'] %}
