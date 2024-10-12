@@ -22,3 +22,14 @@ body {
 .navbar-nav a {
     margin-left: 2em;
 }
+
+/* allseasons */
+.getseason {
+    margin-top: 1rem;
+    display: flex;
+    margin-left: 3em;
+    margin-bottom: 1rem;
+}
+.seasonoption{
+    margin-left: 3em;
+}

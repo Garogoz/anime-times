@@ -5,6 +5,35 @@
 {% endblock %}
 
 {% block main %}
+    <div class="seasons">
+        <form method="post" action="/gotoseason" class="getseason">
+            <div class="seasonoption">
+                <label for="season">Select a Season</label>
+
+                <select name="season" id="season">
+                <option value="none" selected disabled>Season</option>
+                <option value="winter">Winter</option>
+                <option value="spring">Spring</option>
+                <option value="summer">Summer</option>
+                <option value="fall">Fall</option>
+                </select>
+            </div>
+            <div class="seasonoption">
+                <label for="yearint">Select a Year</label>
+                <select name="yearint" id="yearint">
+                    <option value="none" selected disabled>Year</option>
+                    {% for n in range(2024, 1949 , -1)%}
+                        <option value="{{n}}">{{n}}</option>
+                    {% endfor %}
+            </select>
+            </div>
+            <div class="seasonoption">
+                <button class="submitbutton">Go to Season</button>
+            </select>
+            </div>
+        </form>
+    </div>
+    <h2>{{ title }}</h2>
     <ol>
         {% for anime in data %}
         
