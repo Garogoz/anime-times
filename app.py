@@ -133,4 +133,4 @@ def about():
 
 @app.errorhandler(404)
 def page_not_found(error):
-    return render_template('error.html', error= "NOT FOUND "), 404
+    return render_template('404.html', error= "NOT FOUND "), 404

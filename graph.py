@@ -29,7 +29,7 @@ def get_date() -> dict:
     elif 6 <= month <= 8:
         season = 'summer'
     elif 9 <= month <= 11:
-        season = 'autumn'
+        season = 'fall'
     else:
         season = 'winter'
     dict_date = {

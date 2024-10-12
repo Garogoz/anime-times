@@ -1,6 +1,5 @@
 document.addEventListener("DOMContentLoaded", function (event) {
 
-    console.log("DOM fully loaded and parsed");
 
     const buttons = document.querySelectorAll('.addbutton');
 
