@@ -69,6 +69,7 @@ main {
     margin-right: 2em;
     margin-bottom: 2.5rem;
     justify-content: center;
+    flex-wrap: wrap;
     color: #fff;
 }
 .seasonoption{
@@ -76,34 +77,39 @@ main {
     display: flex;
     flex-direction: column;
 }
+#button-season {
+    align-items: center;
+}
 .seasonoption label {
     font-weight: 500;;
 }
 .seasonoption select{
     border-radius: 1.5em;
-    height: 2em;
-    width: 10em;
+    height: 1.7em;
+    width: 7em;
     font-size: 20px;
     padding-left: 10px;
 }
 #format {
-    width: 10em;
+    
 }
 .submitbutton-div{
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
+    align-self: flex-end;
+    flex-basis: 100%;
+    text-align: center;
+    margin-top: 1.5em;
 }
 .submitbutton {
     border-radius: 1.5em;
     height: 2em;
-    width: 10em;
+    width: 8em;
     font-size: 20px;
 }
 .season-title{
     text-align: center;
     color: #fff;
 }
+
 .animecontainer{
     margin: 3em 5%;
     display: flex;
@@ -129,6 +135,7 @@ main {
     border-radius: 8px;
     background-color: #212121;
 }
+
 .animeshows img{
     height: 325px;
     width: 232px;
@@ -137,6 +144,7 @@ main {
     display:flex;
     flex-direction: row;
 }
+
 .animeinfo{
     margin-left: 0.5rem;
     padding-left: 0.5em;
@@ -151,7 +159,7 @@ main {
     align-items: center;;
     text-align: justify;
     min-height: 40px;
-    max-height: 80px;
+    max-height: 100px;
     padding-right: 5px;
     margin-bottom: 0;
 }
@@ -180,25 +188,98 @@ main {
     padding: 0.25em 0.3em;
     margin-right: 0.5em;
     font-size: 16px;
-    
 }
-.genres:hover {
-    transform: scale(1.1)!important;
+
+@media only screen and (max-width: 1270px) {
+    .animeshows {
+        width: 310px;
+        height: auto;
+        max-height: 250px;
+    }
+    .animeshows img{
+        height: 163px;
+        width: 117px;
+    }
+    .animetitle {
+        text-align: start;
+    }
+    .animedescription {
+        display: None;
+    }
+    
+    .getseason {
+        
+        flex-wrap: wrap;
+    }
+    .seasonoption{
+        margin: 0.5em;
+    }
+    
+    .submitbutton-div{
+        height: 70px;
+        margin-top: 0.5em;
+        
+    }
+    .submitbutton {
+        margin: 1em;
+    }
+    .season-title{
+        
+    }
+}
+@media only screen and (max-width: 760px) {
+    .animeshows {
+        width: 100%;
+        min-width: 360px;
+        margin-bottom: 1em;
+    }
+    .animecontent {
+        width:100%;
+    }
+    .animeinfo {
+        width: 100%;
+    }
+    .genres {
+        margin-right: 1em;
+    }
+    .seasonoption {
+        flex-basis: 40%;
+        align-items: center;
+    }
+    .submitbutton-div{
+        flex-basis: 100%;
+    }
 }
 /* anime.hmtl */
+.formoptionanime {
+
+}
+#searchanimeform {
+    align-items: flex-end;
+}
 .inputradius {
     border-radius: 2em;
-    padding: 5px;
+    padding: 2px;
     padding-left: 10px;
+    height: 35px;
+    width: 150px;
+    margin: 1em;
+}
+#searchtitle {
+    max-width: 20em;
+    width: 200px;
 }
 #formatsearch {
-    width: 10em;
+    
 }
 .searchanime {
     margin: 2em 10%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 .searchanime input {
-    width: 20em;
+    width: 10em;
     
 }
 #anime-search {
@@ -207,18 +288,21 @@ main {
     grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
     column-gap: 2em;
     align-items: flex-start;
-    justify-content: center;
+    justify-items: center;
     transition: width 0.3s, height 0.3s;
 }
-.button-search{
-    margin-left: 2em;
-}
+
 .searchresults {
     color: #fff;
     font-size: 20px;
-    margin: 1em 7em;
+    justify-content: center;
+    display: flex;
+    width: auto;
 }
-
+.spanresult{
+    margin: 0.5em;
+    width: fit-content;
+}
 .animeresults {
     display: flex;
     
@@ -353,6 +437,15 @@ main {
     color: inherit;
     text-decoration: none !important;
 }
+@media only screen and (max-width: 720px) {
+    .searchresults {
+        flex-wrap: wrap;
+    }
+    .spanresult {
+        flex-basis: 100%;
+        text-align:center;
+    }
+}
 /* Animeinfo */
 .backgroundinfo {
     background-position: 50% 35%;
@@ -439,6 +532,7 @@ section{
     padding: 0.35em 0.45em;
     margin: 0.3em;
     font-size: 16px;
+    width:auto;
 }
 .tag-content:hover {
     transform: scale(1.1);
@@ -448,7 +542,10 @@ section{
     display: flex;
     flex-direction: row;
     justify-content: center;
-    
+    transition: ease 0.2s;
+}
+.tag-div:hover {
+    transform: scale(1.1);
 }
 .animeformat {
     
@@ -516,12 +613,13 @@ section{
 @media only screen and (max-width: 800px) {
     .animeresults {
       margin: 3em 0.5em;
+      align-self: center;
     }
     .resize-600w{
-        width:189px!important;
+        width:145px!important;
     }
     .resize-600h{
-        height: 261px!important;
+        height: 225px!important;
     }
     .animeresults:hover {
         transform: scale(1.2);
@@ -534,8 +632,16 @@ section{
     }
     #anime-search {
         column-gap: 1em;
-        grid-template-columns: repeat(auto-fit, minmax(189px, 1fr));
-        margin: 3em 3%;
+        row-gap: 1em;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        margin-top: 0.5em;
+        margin-bottom: 5em;
+        margin-left: 3%;
+        margin-right: 3%;
+        
+    }
+    .infocontainer {
+        height: 225px;
     }
     
   }
@@ -572,8 +678,7 @@ section{
         margin-top: 1.5em;
     }
     #selectgenre {
-        margin-top: 1.5em;
-        height: 40px;
+       
     }
 }
 @media only screen and (max-width: 600px) {
@@ -582,7 +687,6 @@ section{
     }
     .leftco {
         flex: 1;
-        
         display : flex;
         margin-bottom: 1em;
         justify-content: center;
@@ -603,12 +707,14 @@ section{
         padding-left: 0.2em;
     }
     .searchanime {
-        margin-left: 0;
+        margin: 1em 0;
         justify-content: center;
     }
-    .button-search {
-        margin-left: 0;
-        margin: 0.5em;
+
+    .submitbutton {
+        flex-basis: 100%;
+        margin: 0 5em;
+        margin-top: 1em;
     }
 }
 .green {

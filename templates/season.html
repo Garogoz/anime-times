@@ -11,11 +11,13 @@
         <div class="seasonoption">
             <label for="season">Season</label>
             <select name="season" id="season" required>
+                <!--
                 {% if form_data['season'] %}
                     <option value="{{ form_data['season'] }}" selected>{{ form_data['season'].lower().capitalize() }}</option>
                 {% else %}
                     <option value="" disabled selected>Select Season</option>
                 {% endif %}
+                -->
                 <option value="winter">Winter</option>
                 <option value="spring">Spring</option>
                 <option value="summer">Summer</option>
@@ -25,11 +27,13 @@
         <div class="seasonoption">
             <label for="yearint">Year</label>
             <select name="yearint" id="yearint" required>
+                <!--
                 {% if form_data['year'] %}
                     <option value="{{ form_data['year'] }}" selected>{{ form_data['year'] }}</option>
                 {% else %}
                     <option value="" disabled selected>Select Year</option>
                 {% endif %}
+                -->
                 {% for n in range(2024, 1949, -1) %}
                     <option value="{{ n }}">{{ n }}</option>
                 {% endfor %}
@@ -38,11 +42,13 @@
         <div class="seasonoption">
             <label for="format">Format</label>
             <select name="format" id="format">
+                <!--
                 {% if form_data['format'] %}
                     <option value="{{ form_data['format'] }}" selected>{{ form_data['format'] }}</option>
                 {% else %}
                     <option value="" selected>Select Format</option>
                 {% endif %}
+                -->
                 <option value="TV">TV</option>
                 <option value="MOVIE">Movies</option>  
                 <option value="OVA">OVA</option>
@@ -51,7 +57,7 @@
                 <option value="SPECIAL">Special</option>    
             </select>
         </div>
-        <div class="seasonoption submitbutton-div">
+        <div class="seasonoption submitbutton-div " id="button-season">
             <button class="submitbutton">Go to Season</button>
         </div>
     </form>
@@ -75,7 +81,9 @@
                 </div>
                 <div class="extras">
                     {% for genre in anime['genres'] %}
-                        <div class="tag-div"><a class="anchorstyle" href="/anime?selectgenre={{genre}}"><span class="genres purple">{{genre}}</span></a></div>
+                        {% if loop.index < 4 %}
+                            <div class="tag-div"><a class="anchorstyle" href="/anime?selectgenre={{genre}}"><span class="genres purple">{{genre}}</span></a></div>
+                        {% endif %}
                     {% endfor %}
                 </div>
             </div>

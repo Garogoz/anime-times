@@ -5,34 +5,47 @@
 {% endblock %}
 
 {% block main %}
-    <form action="{{url}}" method="get" class="searchanime">
-        <input type="text" name="title" autocomplete="off" placeholder="Title" class="inputradius">
-        <select name="selectgenre" id="selectgenre" class="selectgenre inputradius button-search">
-            <option value="" selected>Any</option>
-            {% for genre in data['genres'] %}
-                <option value="{{ genre }}">{{ genre }}</option>
-            {% endfor %}
-        </select>
+    <form action="{{url}}" method="get" class="searchanime" id="searchanimeform">
+        <div class="formoption-anime">
+            <input type="text" name="title" autocomplete="off" placeholder="Title" class="inputradius" id="searchtitle">
+        </div>
+        <div class="formoption-anime">
+            <select name="selectgenre" id="selectgenre" class="inputradius">
+                <option value="" selected>Any</option>
+                {% for genre in data['genres'] %}
+                    <option value="{{ genre }}">{{ genre }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        
         <input type="hidden" name="page" value="{{ page }}">
-        <select name="formatsearch" id="formatsearch" class="sort inputradius button-search">
-            <option value="">All</option>
-            <option value="TV">TV</option>
-            <option value="MOVIE">Movies</option>  
-            <option value="OVA">OVA</option>
-            <option value="TV_SHORT">TV Short</option>
-            <option value="ONA">ONA (Original Net Animation)</option>
-            <option value="SPECIAL">Special</option>  
-        </select>
-        <select name="sort" id="sort" class="sort inputradius button-search">
-            <option value="TRENDING_DESC" >Trending</option>
-            <option value="POPULARITY_DESC">Popularity</option>
-            <option value="SCORE_DESC" >Score</option>
-        </select>
-        <button type="submit" class="submitbutton button-search">Search</button>
+        <div class="formoption-anime">
+            <select name="formatsearch" id="formatsearch" class="sort inputradius">
+                <option value="">All</option>
+                <option value="TV">TV</option>
+                <option value="MOVIE">Movies</option>  
+                <option value="OVA">OVA</option>
+                <option value="TV_SHORT">TV Short</option>
+                <option value="ONA">ONA (Original Net Animation)</option>
+                <option value="SPECIAL">Special</option>  
+            </select>
+        </div>
+        <div class="formoption-anime">
+            <select name="sort" id="sort" class="sort inputradius">
+                <option value="TRENDING_DESC" >Trending</option>
+                <option value="POPULARITY_DESC">Popularity</option>
+                <option value="SCORE_DESC" >Score</option>
+            </select>
+        </div>
+        <div class="submitbutton-div">
+            <button type="submit" class="submitbutton ">Search</button>
+        </div>
     </form>
     <div class="searchresults">
         {% if url_params['title'] or url_params['selectgenre'] or url_params['format'] or url_params['sort']%}
+        <div class="spanresult">
             <span>Results for: </span>
+        </div>
             {% if url_params['title'] %}
                 <span class="tag-content yellow fontsizetag">{{url_params['title']}}</span>
             {%endif%}
