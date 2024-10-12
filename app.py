@@ -1,6 +1,5 @@
 from flask import Flask, render_template, redirect, jsonify, request, url_for
 from graph import cache
-import time
 import graph
 
 
@@ -24,7 +23,7 @@ def seasons():
 
 @app.route('/anime', methods=['GET'])
 def anime():
-    time.sleep(0.3)
+    graph.time.sleep(0.3)
     title = request.args.get('title')
     genre = request.args.get('selectgenre')
     if not title and not genre:
@@ -53,9 +52,10 @@ def anime():
 @app.route('/anime/<int:id>', methods=['GET'])
 def gotoanime(id: int):
     data = graph.get_anime_info(id)
-    if not data:
-        return redirect('/404')
-    return render_template('animeinfo.html', title="Anime", data=data)
+    if data is None:
+        return render_template('error.html', "Anime not found")
+    else:
+        return render_template('animeinfo.html', title="Anime", data=data)
 
 
 @app.route('/<season>/<int:year>/<format>', methods=['GET'])

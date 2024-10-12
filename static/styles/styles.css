@@ -185,6 +185,9 @@ hr {
 .overlay-text a {
     color: white;
 }
+.overlay-text:hover {
+    display: none;
+}
 .overlay-text a:hover {
     color: rgb(212, 207, 207);
 }
@@ -201,7 +204,7 @@ hr {
     transition: opacity 0.3s ease;
 }
 .hover-text:hover {
-    opacity: 0.4;
+   /* opacity: 0.4; */
 
 }
 .hover-specs {
@@ -231,6 +234,7 @@ hr {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    flex-wrap: wrap;
 }
 .animeinfo-content {
 
@@ -329,9 +333,13 @@ section{
         grid-template-columns: repeat(auto-fit, minmax(189px, 1fr));
         margin: 3em 3%;
     }
+    
   }
   @media only screen and (max-width: 1200px) {
     .animeinfo-container {
         margin: 1em 2%;
     }
+    .rightco {
+        flex-basis: 100%; /* Third item takes up 100% width */
+        margin-right: 0; /* Remove right margin */
   }

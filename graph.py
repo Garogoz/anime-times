@@ -2,6 +2,7 @@ import requests
 import json
 from flask_caching import Cache
 from functools import wraps
+import time
 
 # Configure the cache
 cache = Cache(config={'CACHE_TYPE': 'simple'})
@@ -21,13 +22,31 @@ def handle_error(status_code: int, response_headers):
     print(f"ERROR retrieving data. Status Code: {status_code}")
 
 # Function to make GraphQL queries
-def make_graphql_query(query: str, variables: dict):
-    response = requests.post(url, json={'query': query, 'variables': variables})
-    if response.status_code == 200:
-        return response.json()['data']
+def make_graphql_query(query: str, variables: dict = None, max_retries: int = 3, retry_delay: int = 5):
+    for attempt in range(max_retries): 
+        try:
+            response = requests.post(url, json={'query': query, 'variables': variables})
+            response.raise_for_status()
+            # If the request was successful, break out of the loop
+            break
+        except requests.HTTPError as e:
+            if e.response.status_code == 500:
+                print(f"Attempt {attempt+1}: Received 500 Internal Server Error. Retrying in {retry_delay} seconds...")
+                time.sleep(retry_delay)
+            elif e.response.status_code == 429:  # Too Many Requests
+              print("Rate limit exceeded. Waiting and retrying...")
+              time.sleep(60)  # Wait for some time before retrying
+              return make_graphql_query(query, variables)  # Retry the request
+            else:
+                # Handle other HTTP errors
+                print(f"HTTP error {e.response.status_code}: {e.response.reason}")
+        except Exception as e:
+            # Handle other exceptions
+            print(f"An error occurred: {e}")
     else:
-        handle_error(response.status_code, response.headers)
-        return None
+        # If all retries fail, notify the user or handle the situation accordingly
+        print("Maximum number of retries reached. Unable to complete the request.")
+    return response.json()['data']
 
 #struct information for querys with multiple results
 def struct_data_multiple(data):
@@ -43,8 +62,17 @@ def struct_data_multiple(data):
 	'anime_data': anime_data,
 	'genres': genres
 	}
-    return info
-
+    return info 
+"""
+def get_genres():
+    query = '''
+    query{
+      GenreCollection
+    }
+'''
+    data = make_graphql_query(query, None)
+    return data
+"""
 def get_anime_season_data(variables: dict):
       
     # Here we define our query as a multi-line string
@@ -257,11 +285,8 @@ def get_anime_info(id: int):
         'id': id,
     }
 
-    response = requests.post(url, json={'query': query, 'variables': variables})
-    if response.status_code == 200:
-        data = response.json()['data']['Media']
-        if not data:
-            return handle_error(response.status_code)
-        return data
+    data = make_graphql_query(query, variables)
+
+    return data['Media']
  
         
