@@ -104,6 +104,10 @@ def gotoseason():
         return redirect(f'{season}/{year}/{format}')
     except:
         return  404  #fix
+@app.route ('/schedule')
+def schedule():
+    
+    return render_template('schedule.html')
 
 @app.errorhandler(404)
 def page_not_found(error):

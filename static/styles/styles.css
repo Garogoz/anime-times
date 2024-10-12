@@ -1,9 +1,9 @@
-html {
+html, body {
     font-family: 'Open Sans', Sans-serif!important;
-}
-body {
+    height: 100%;
     background-color: #121212 !important;
     padding: 0;
+    height: 100%;
 }
 hr {
     margin: 0 ;
@@ -13,6 +13,15 @@ footer {
     width: 100%;
     height: 15vh;
     background-color: #222;
+    margin-top: auto;
+}
+.wrapper {
+    min-height: calc(100% - 20vh); 
+    display: flex;
+    flex-direction: column;
+}
+.main-content {
+    flex: 1;
 }
 .anchorstyle {
     color: #fff;
@@ -737,4 +746,27 @@ section{
 .fontsizetag {
     font-weight: 500;
     font-size: 20px;
+}
+/* shedule.html */
+.mainview {
+    display: flex;
+    height: 100vh;
+    width: 100%;
+    
+}
+.addshows {
+    width: 25%;
+    height: 100%;
+    background-color: rgb(245, 171, 171);
+}
+.schedule {
+    width: 75%;
+    height: 100%;
+    background-color: rgb(140, 140, 229);
+}
+.searchform {
+    margin: 2em 1em;
+}
+.show-list {
+    border: 1px solid black;
 }
