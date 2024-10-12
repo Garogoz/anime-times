@@ -86,45 +86,62 @@
                 <p>{{data['description'] | safe}}</p>
             </section>
             <section class="genre-season section-content ">
-                <div class="animegenres section-part">
+                <div class="fixanimegenre">
                     <h4>Genres</h4>
-                    {% for genre in data['genres'] %}
-                        <span class="tag-content purple">{{genre}}</span>
-                    {% endfor %}
+                    <div class="animegenres section-part">
+                        {% for genre in data['genres'] %}
+                        <div class="tag-div">
+                            <span class="tag-content purple">{{genre}}</span>
+                        </div>
+                        {% endfor %}
+                    </div>
                 </div>
                 <div class="animeseason section-part">
                     <h4>Season</h4>
-                    <span class="tag-content blue">{{data['season']}} {{data['seasonYear']}}</span>
+                    <div class="tag-div">
+                        <span class="tag-content blue">{{data['season']}} {{data['seasonYear']}}</span>
+                    </div>
                 </div>
                 <div class="animetype section-part">
                     <h4>Type</h4>
-                    <span class="tag-content">{{data['type']}}</span>
+                    <div class="tag-div">
+                        <span class="tag-content">{{data['type']}}</span>
+                    </div>
                 </div>
                 <div class="animeformat section-part">
                     <h4>Format</h4>
-                    <span class="tag-content">{{data['format']}}</span>
+                    <div class="tag-div">
+                        <span class="tag-content">{{data['format']}}</span>
+                    </div>
                 </div>
                 <div class="animestatus section-part">
                     <h4>Status</h4>
-                    {% if data['status'] == 'FINISHED' %}
-                        <span class="tag-content red">{{data['status']}}</span>
-                    {% else %}
-                        <span class="tag-content green">{{data['status']}}</span>
-                    {% endif %}
+                    <div class="tag-div">
+                        {% if data['status'] == 'FINISHED' %}
+                            <span class="tag-content red">{{data['status']}}</span>
+                        {% else %}
+                            <span class="tag-content green">{{data['status']}}</span>
+                        {% endif %}
+                    </div>
                 </div>
             </section>
             <section class="avgpopularity section-part centercontent">
                 <div class="popularity">
                     <h4>Popularity</h4>
-                    <span class="tag-content">{{data['popularity']}}</span>
+                    <div class="tag-div">
+                        <span class="tag-content">{{data['popularity']}}</span> 
+                    </div>
                 </div>
                 <div class="score">
                     <h4>Score</h4>
-                    <span class="tag-content">{{data['averageScore']/10}}</span>
+                    <div class="tag-div">
+                        <span class="tag-content">{{data['averageScore']/10}}</span>
+                    </div>
                 </div>
             </section>
         </div>
         <div class="animeinfo-content rightco">
+            <h3>Relations</h3>
             {% for anime in data['relations']['edges'] %}
                 {% if loop.index <= 4 %}
                 <a href="{{ anime['node']['id'] }}"> 
