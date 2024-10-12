@@ -12,16 +12,19 @@ document.addEventListener("DOMContentLoaded", function (event) {
         // Check if the ID is in the array
         return animeIds.includes(id);
     }
+    
      // Initialize button colors based on local storage
      buttons.forEach(button => {
         const animeId = button.getAttribute('data-anime-id');
         if (!isIdInLocalStorageArray(animeId)) {
             button.innerHTML = "Add"
             button.classList.add('greenbutton');
+            button.setAttribute("title", "Click to Add to Schedule");
         } else {
             button.innerHTML = "Remove"
             button.classList.remove('greenbutton');
             button.classList.add('redbutton');
+            button.setAttribute("title", "Click to remove from Schedule");
         }
     });
 
@@ -47,6 +50,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 this.classList.remove('redbutton');
                 this.classList.add('greenbutton');
                 this.innerHTML = "Add"
+                this.setAttribute("title", "Click to Add to Schedule")
                 console.log("removed");
             } else {
                 // Add the new ID to the array
@@ -54,6 +58,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
                 this.innerHTML = "Remove"
                 this.classList.add('redbutton');
                 this.classList.remove('greenbutton');
+                this.setAttribute("title", "Click to remove from Schedule");
                 console.log("saved");
             }
 
@@ -61,4 +66,35 @@ document.addEventListener("DOMContentLoaded", function (event) {
             localStorage.setItem('animeIds', JSON.stringify(animeIds));
         });
     });
+
+    // Function to clear local storage and reset buttons
+    function clearLocalStorage() {
+        // Clear the array from local storage
+        localStorage.removeItem('animeIds');
+        console.log("Cleared local storage");
+        // Reload the page to reset all states
+        location.reload();
+
+        // Reset the buttons to their initial state
+        buttons.forEach(button => {
+            button.innerHTML = "Add";
+            button.classList.add('greenbutton');
+            button.setAttribute('title', 'Click to add to Schedule');
+            button.classList.remove('redbutton');
+        });
+    }
+
+    // Get the clear button and attach event listener
+    const clearButton = document.getElementById('clearButton');
+    
+    if(clearButton) {
+    clearButton.addEventListener('click', function(event) {
+        event.preventDefault();
+         // Show a confirmation dialog
+         const userConfirmed = window.confirm("Are you sure you want to clear all the Schedule?");
+         if (userConfirmed) {
+             clearLocalStorage();
+         }
+    });
+}
 });

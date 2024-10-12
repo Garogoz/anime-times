@@ -126,6 +126,10 @@ def process_local_storage():
         'message': 'Data received and processed successfully!'
     })
 
+@app.route ('/about', methods=['GET'])
+def about():
+        return render_template('about.html')
+
 @app.errorhandler(404)
 def page_not_found(error):
     return render_template('error.html'), 404

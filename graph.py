@@ -164,6 +164,7 @@ def get_anime_season_data(variables: dict):
           season
           seasonYear
           type
+          status
           duration
           genres
           averageScore

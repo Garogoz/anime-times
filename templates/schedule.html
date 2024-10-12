@@ -5,29 +5,42 @@
 {% endblock %}
 
 {% block main %}
+    <div class="schedule-options">
+        <button class="submitbutton" id="search-button" title="Search for anime to add to schedule">Add Animes</button>
+    </div>
 
     <div class="schedulecontainer">
-        <div class="daycolumn uno" id="Monday">
+        <div class="daycolumn uno">
             <div class="dayheader">Monday</div>
+            <div class="daycontent" id="Monday"></div>
         </div>
-        <div class="daycolumn dos" id="Tuesday">
+        <div class="daycolumn dos"">
             <div class="dayheader">Tuesday</div>
+            <div class="daycontent"  id="Tuesday"></div>
         </div>
-        <div class="daycolumn uno" id="Wednesday">
+        <div class="daycolumn uno">
             <div class="dayheader">Wednesday</div>
+            <div class="daycontent" id="Wednesday"></div>
         </div>
-        <div class="daycolumn dos" id="Thursday">
+        <div class="daycolumn dos">
             <div class="dayheader">Thursday</div>
+            <div class="daycontent" id="Thursday"></div>
         </div>
-        <div class="daycolumn uno end" id="Friday">
+        <div class="daycolumn uno end" >
             <div class="dayheader">Friday</div>
+            <div class="daycontent" id="Friday"></div>
         </div>
-        <div class="daycolumn dos end" id="Saturday">
+        <div class="daycolumn dos end">
             <div class="dayheader">Saturday</div>
+            <div class="daycontent" id="Saturday"></div>
         </div>
-        <div class="daycolumn uno end" id="Sunday">
+        <div class="daycolumn uno end" >
             <div class="dayheader">Sunday</div>
+            <div class="daycontent" id="Sunday"></div>
         </div>
+    </div>
+    <div class="clear-button">
+        <button class="submitbutton" id="clearButton">Clear All</button>
     </div>
 
     <script src="{{ url_for('static', filename='js/schedule.js') }}"></script>

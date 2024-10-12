@@ -14,6 +14,19 @@ footer {
     height: 15vh;
     background-color: #222;
     margin-top: auto;
+    display: flex !important;
+    justify-content: center; 
+    align-items: center; 
+    
+}
+footer h4 {
+    color: white;
+    text-align: center;
+    margin: 0;
+}
+.main-logo {
+    width: 180px;
+    height: 180px;
 }
 .wrapper {
     min-height: calc(100% - 15vh); 
@@ -59,8 +72,8 @@ footer {
 }
 
 .logoat {
-    font-size: 3em !important;
     padding-left: 1em;
+    font-size: 3em !important;
 }
 
 .navbar-nav a {
@@ -153,13 +166,19 @@ main {
 .animecontent{
     display:flex;
     flex-direction: row;
+    width: 100%;
 }
 
 .animeinfo{
     margin-left: 0.5rem;
     padding-left: 0.5em;
     max-height: 325px;
+
+    width: 100%;
     overflow: auto;
+    overflow: -moz-scrollbars-none; 
+    -ms-overflow-style: none; 
+    scrollbar-width: none;
 }
 .animeinfospecs {
     padding-left: 5px;
@@ -172,6 +191,7 @@ main {
     max-height: 100px;
     padding-right: 5px;
     margin-bottom: 0;
+    
 }
 .animedescription {
     
@@ -203,6 +223,7 @@ main {
     align-items: center;
     padding-top: 0.5rem;
     margin-top: 0.5em;
+    width: 100%;
 }
 .genres {
     border: 1px solid grey;
@@ -211,6 +232,17 @@ main {
     margin-right: 0.5em;
     font-size: 16px;
 }
+.schedulebuttondiv {
+    margin-left: auto;
+}
+.schedulebuttondiv-desc {
+    display: none;
+    flex-direction: column;
+    max-width: 163px;
+    margin-top: auto;
+    margin-bottom: 1em;
+}
+
 
 @media only screen and (max-width: 1270px) {
     .animeshows {
@@ -218,7 +250,7 @@ main {
         height: auto;
         max-height: 250px;
     }
-    .animeshows img{
+    .animeshows img{    
         height: 163px;
         width: 117px;
     }
@@ -228,7 +260,10 @@ main {
     .animedescription {
         display: None;
     }
-    
+    .animeinfo {
+        display: flex;
+        flex-direction: column;
+    }
     .getseason {
         
         flex-wrap: wrap;
@@ -247,6 +282,12 @@ main {
     }
     .season-title{
         
+    }
+    .schedulebuttondiv {
+        display: none;
+    }
+    .schedulebuttondiv-desc {
+        display: flex;
     }
 }
 @media only screen and (max-width: 800px) {
@@ -330,14 +371,14 @@ main {
     
     position: relative;
     margin: 1.5em 1em;
-    /*border: 1px solid black;*/
     border-radius: 1rem;
     width: 236px;
-    
 }
-.animeresults:hover{
-    transform: scale(1.1)
- }
+@media (hover: hover) and (pointer: fine) {
+    .animeresults:hover {
+        transform: scale(1.1);
+    }
+}
 
 
 .imgsearch {
@@ -431,13 +472,17 @@ main {
     display: flex;
     padding: 1.5em 1em 0 0 ;
 
+
 }
 .addbutton {
     color: white;
     font-weight: 400;
+    border-radius: 1.2em;
+    font-size: 16px;
 }
 .addbutton-animeinfo{
     margin-left:1em;
+    
 }
 .greenbutton {
     background-color: green;
@@ -447,9 +492,11 @@ main {
 }
 .redbutton {
     background-color: red;
+    
 }
 .redbutton:hover {
     background-color: yellow;
+    color: black;
 }
 .popularity {
     border-top-left-radius: 0.9rem;
@@ -558,6 +605,8 @@ section{
     flex: 0 0 300px;
     position: relative;
     top: -170px;
+    flex-direction: column;
+    
 }
 .animecoverimage {
     margin-bottom: 1em;
@@ -657,6 +706,9 @@ section{
     font-weight:  bold;
     font-size: 20px;
 }
+#schedule-span {
+    padding-left: 5px;
+}
 .relationanime{
     display: flex;
     flex-direction: row;
@@ -687,7 +739,6 @@ section{
         height: 225px!important;
     }
     .animeresults:hover {
-        transform: scale(1.2);
         z-index: 1;
       }
       
@@ -754,19 +805,32 @@ section{
         flex: 1;
         display : flex;
         margin-bottom: 1em;
-        justify-content: center;
+        justify-content: flex-start;
         padding: 5px;
+        
+    }
+    .fixflex {
+        display: flex;
+    }
+    .fixaddschedule { 
+        display: flex;
+        justify-content: center;
+    }
+    
+    
+    .schedulebutton-anime-info {
+        
     }
     .animecoverimage img {
-        width: 185px;
-        height: 257px;
+        width: 150px;
+        height: 220px;
     }
     .animecoverimage  {
         width: fit-content;
         height: fit-content;
     }
     .specification {
-        min-width: 220px;
+        min-width: 210px;
         margin-left: 1em;
         padding-right: 0.5em;
         padding-left: 0.2em;
@@ -830,6 +894,7 @@ section{
     text-align: center;
     padding: 0.5em 0;
     height: 3em;
+    cursor: pointer;
 }
 .anime-entry { 
     display: flex;
@@ -864,6 +929,22 @@ section{
     width: 200px;
     height: 300px;
 }
+.clear-button {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+#clearButton {
+    display: none;
+}
+.schedule-options {
+    display: flex;
+    justify-content: center;
+}
+#search-button {
+    margin-top: 0;
+    margin-bottom: 2em;
+}
 @media only screen and (max-width: 1430px) {
     .schedulecontainer {
         flex-wrap: wrap;
@@ -871,13 +952,18 @@ section{
     .daycolumn {
         width: 200px;
     }
-    .end {
-
+}
+@media only screen and (max-width: 476px) {
+    .daycontent {
+        display: none; 
+    }
+    .daycolumn {
+        min-height: 50px;
     }
 }
 .searcher {
     position: relative;
-    width: 300px; /* Adjust width as needed */
+    width: 300px; 
     
 }
 #searchResults {
@@ -918,4 +1004,56 @@ section{
     display: flex;
     flex-direction: column;
     padding-left: 5px;
+}
+/* about.html */
+.firstcontainer {
+    color: white;
+    display: flex;
+    padding: 1em 5em;
+}
+.firstcontainer div {
+    background-color: #262626;
+    border-radius: 10px;
+}
+.rightside {
+    margin-left: 1em;
+    padding: 1em;
+}
+.leftside {
+    padding: 1em;
+    height: fit-content;
+}
+.logoimg {
+    width: 50px;
+    margin-bottom: 0.5em;
+    height: 50px;
+}
+#githublogo {
+    background-color: white;
+    border-radius: 1em;
+}
+#logohtml {
+    width: 130px;
+}
+.contactlogo {
+    margin-left: 1em;
+}
+.techsimg {
+    margin-right: 0.5em;
+}
+@media only screen and (max-width: 1200px) {
+    .firstcontainer {
+        padding: 0 0 1.5em 0;
+    }
+}
+@media only screen and (max-width: 830px) {
+    .firstcontainer {
+        flex-direction: column;
+    }
+    .leftside {
+        margin-bottom: 1.5em;
+    }
+    .rightside {
+        margin-left: 0;
+    }
 }

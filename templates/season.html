@@ -81,6 +81,11 @@
                         <div class="animedescription">
                             <p>{{anime['description'] | safe}}</p>
                         </div>
+                        {% if anime['status'] == 'RELEASING' and anime['type'] == 'ANIME' %}
+                        <div class="schedulebuttondiv-desc">
+                            <button class="addbutton " data-anime-id="{{anime['id']}}"></button>
+                        </div>
+                    {% endif %}
                     </div>
                 </div>
                 <div class="extras">
@@ -89,6 +94,11 @@
                             <div class="tag-div"><a class="anchorstyle" href="/anime?selectgenre={{genre}}"><span class="genres purple">{{genre}}</span></a></div>
                         {% endif %}
                     {% endfor %}
+                    {% if anime['status'] == 'RELEASING' and anime['type'] == 'ANIME' %}
+                        <div class="schedulebuttondiv">
+                            <button class="addbutton" data-anime-id="{{anime['id']}}"></button>
+                        </div>
+                    {% endif %}
                 </div>
             </div>
         
