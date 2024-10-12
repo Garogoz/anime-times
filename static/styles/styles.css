@@ -3,7 +3,9 @@ body {
     background-color: rgb(237,241,245);
     padding: 0;
 }
-
+hr {
+    margin: 0 !important;
+}
 .header {
     background-color: #2b2d42;;
     width: 100%;
@@ -23,13 +25,84 @@ body {
     margin-left: 2em;
 }
 
-/* allseasons */
+/* seasons */
 .getseason {
     margin-top: 1rem;
     display: flex;
-    margin-left: 3em;
+    margin-right: 2em;
     margin-bottom: 1rem;
+    justify-content: flex-end;
 }
 .seasonoption{
     margin-left: 3em;
+}
+.season-title{
+    text-align: center;
+}
+.animecontainer{
+    
+    margin: 3em 3%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+.animeshows{
+    
+    display: flex;
+    margin: 1em;
+    width: 550px;
+    block-size: fit-content;
+    flex-direction: column;
+    align-items: flex-start;
+    height: 390px;
+    margin-bottom: 50px;
+    padding: 1em;
+    border: 1px solid black;
+    border-radius: 8px;
+    background-color: #ededf1;
+}
+.animeshows img{
+    height: 325px;
+    width: 232px;
+}
+.animecontent{
+    display:flex;
+    flex-direction: row;
+}
+.animeinfo{
+    margin-left: 0.5rem;
+    padding-left: 0.5em;
+    max-height: 325px;
+    overflow: auto;
+}
+.animetitle{
+    display: flex;
+    align-items: center;;
+    text-align: justify;
+    height: 40px;
+    margin-bottom: 0;
+}
+.animedescription {
+    
+    overflow-y: hidden;
+
+}
+.animedescription p {
+    margin: 0;
+    padding: 0; 
+    overflow-y: auto;
+    
+}
+.extras {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-top: 0.5rem;
+}
+.genres {
+    border: 1px solid grey;
+    border-radius: 2em;
+    padding: 0.25em;
+    margin-right: 0.5em;
 }

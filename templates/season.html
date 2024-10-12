@@ -33,12 +33,30 @@
             </div>
         </form>
     </div>
-    <h2>{{ title }}</h2>
-    <ol>
+    <h2 class="season-title">{{ title }}</h2>
+    <div class="animecontainer">
         {% for anime in data %}
         
-            <li>{{ anime['title']['romaji'] }}</li>
+            <div class="animeshows">
+                <div class="animecontent">
+                    <img src="{{anime['coverImage']['large']}}" alt="anime cover image">
+                    <div class="animeinfo">
+                        <div class="animetitle">
+                            <h6>{{anime['title']['romaji']}}</h6>
+                        </div>
+                        <hr>
+                        <div class="animedescription">
+                            <p>{{anime['description'] | safe}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="extras">
+                    {% for genre in anime['genres'] %}
+                        <span class="genres">{{genre}}</span>
+                    {% endfor %}
+                </div>
+            </div>
         
         {% endfor %}
-    </ol>
+    </div>
 {% endblock %}
