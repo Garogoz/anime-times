@@ -5,8 +5,78 @@
 {% endblock %}
 
 {% block main %}
-    <div class="container">
-        <h2>{{data['title']['romaji']}}</h2>
+    <div class="animeinfo-container">
+        <div class="animeinfo-content leftco">
+            <div class="animecoverimage">
+                <img src="{{data['coverImage']['extraLarge']}}" alt="Cover image of anime {{data['title']['romaji']}}">
+            </div>
+            
+            <section class="specification section-part">
+                <div class="animeinfospecs"> 
+                    <span class="darkspan">Japanese title: </span>
+                    {{data['title']['native']}}
+                </div>
+                <div class="animeinfospecs"> 
+                    <span class="darkspan">Episodes: </span>
+                    {{data['episodes']}}
+                </div>
+                <div class="animeinfospecs"> 
+                    <span class="darkspan">Started airing: </span>
+                    {{data['startDate']['day']}}-{{data['startDate']['month']}}-{{data['startDate']['year']}}
+                </div>
+                <div class="animeinfospecs"> 
+                    <span class="darkspan">Ended airing: </span>
+                    {{data['endDate']['day']}}-{{data['endDate']['month']}}-{{data['endDate']['year']}}
+                </div>
+                
+            </section>
+        </div>
+        <div class="animeinfo-content middleco">
+            <section class="animetitles section-content">
+                <h1>{{data['title']['romaji']}}</h2>
+                <h5>{{data['title']['english']}}</h2>
+            </section>
+            <section class="animedescription section-content">
+                <p>{{data['description'] | safe}}</p>
+            </section>
+            <section class="genre-season section-content ">
+                <div class="animegenres section-part">
+                    <h4>Genres</h4>
+                    {% for genre in data['genres'] %}
+                        <span class="tag-content">{{genre}}</span>
+                    {% endfor %}
+                </div>
+                <div class="animeseason section-part">
+                    <h4>Season</h4>
+                    <span class="tag-content">{{data['season']}} {{data['seasonYear']}}</span>
+                </div>
+                <div class="animetype section-part">
+                    <h4>Type</h4>
+                    <span class="tag-content">{{data['type']}}</span>
+                </div>
+                <div class="animeformat section-part">
+                    <h4>Format</h4>
+                    <span class="tag-content">{{data['format']}}</span>
+                </div>
+                <div class="animestatus section-part">
+                    <h4>Status</h4>
+                    <span class="tag-content">{{data['status']}}</span>
+                </div>
+            </section>
+            <section class="avgpopularity section-part centercontent">
+                <div class="popularity">
+                    <h4>Popularity</h4>
+                    <span class="tag-content">{{data['popularity']}}</span>
+                </div>
+                <div class="score">
+                    <h4>Score</h4>
+                    <span class="tag-content">{{data['averageScore']/10}}</span>
+                </div>
+            </section>
+        </div>
+        <div class="animeinfo-content rightco">
+            
+        </div>
     </div>
     
 {% endblock %}

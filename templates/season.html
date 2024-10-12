@@ -36,17 +36,16 @@
                     <option value="TV_SHORT" >TV Short</option>
                     <option value="ONA" >ONA (Original Net Animation)</option>
                     <option value="SPECIAL">Special</option>    
-            </select>
+                </select>
             </div>
             <div class="seasonoption">
                 <button class="submitbutton">Go to Season</button>
-            </select>
             </div>
         </form>
     </div>
     <h2 class="season-title">{{ title }}</h2>
     <div class="animecontainer" id="seasonalanime">
-        {% for anime in data %}
+        {% for anime in data['anime_data'] %}
         
             <div class="animeshows">
                 <div class="animecontent">
@@ -57,7 +56,7 @@
                         </div>
                         <hr>
                         <div class="animedescription">
-                            <p>{{anime['description'] | safe}}</p>
+                            <p>{{anime['description']}}</p>
                         </div>
                     </div>
                 </div>
