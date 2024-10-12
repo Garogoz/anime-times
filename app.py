@@ -107,23 +107,25 @@ def gotoseason():
         return redirect(f'{season}/{year}/{format}')
     except:
         return  404  #fix
-@app.route ('/schedule', methods=['POST', 'GET'])
+@app.route ('/schedule', methods=['GET'])
 def schedule():
-    if request.method == 'POST':
-        data = request.json
-        title = data.get('search')
-
-        variables = {
-        'search' : title
-        }
-
-        response = graph.getAnimeForSchedule(variables)
-        print("runnnnnnnnnnnnn")
-        print(response)
-        return jsonify(response)
-    else:
         return render_template('schedule.html')
     
+@app.route("/process_local_storage", methods=['POST'])
+def process_local_storage():
+    # Handle POST request
+    data = request.get_json()
+    anime_ids = data.get('animeIds', [])
+    anime_list_data = graph.getAnimesInSchedule(anime_ids)
+
+    processed_anime_data = graph.add_datetime_anime(anime_list_data['Page']['media'])
+
+    return jsonify({
+        'received_anime_ids': anime_ids,
+        'anime_data': processed_anime_data,
+        'message': 'Data received and processed successfully!'
+    })
+
 @app.errorhandler(404)
 def page_not_found(error):
     return render_template('error.html'), 404

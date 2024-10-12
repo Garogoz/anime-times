@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Schedule
+{% endblock %}
+
+{% block main %}
+
+    <div class="schedulecontainer">
+        <div class="daycolumn uno" id="Monday">
+            <div class="dayheader">Monday</div>
+        </div>
+        <div class="daycolumn dos" id="Tuesday">
+            <div class="dayheader">Tuesday</div>
+        </div>
+        <div class="daycolumn uno" id="Wednesday">
+            <div class="dayheader">Wednesday</div>
+        </div>
+        <div class="daycolumn dos" id="Thursday">
+            <div class="dayheader">Thursday</div>
+        </div>
+        <div class="daycolumn uno end" id="Friday">
+            <div class="dayheader">Friday</div>
+        </div>
+        <div class="daycolumn dos end" id="Saturday">
+            <div class="dayheader">Saturday</div>
+        </div>
+        <div class="daycolumn uno end" id="Sunday">
+            <div class="dayheader">Sunday</div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/schedule.js') }}"></script>
+
+{% endblock %}

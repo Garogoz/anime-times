@@ -87,15 +87,22 @@
                                         </div>
                                     {% endif %}
                                 </div>
-                                <div class="animesearchinfo ">
+                                <div class="animesearchinfo bottoninfo">
+                                    <div id="popuscore">
+                                    {% if anime['averageScore'] %}
+                                        <div class="averagescore">
+                                            <p>{{anime['averageScore']/10}}</p>
+                                        </div>
+                                    {% endif %}
                                     {% if anime['popularity'] %}
                                         <div class="popularity">
                                             <p>{{anime['popularity']}}</p>
                                         </div>
                                     {% endif %}
-                                    {% if anime['averageScore'] %}
-                                        <div class="averagescore">
-                                            <p>{{anime['averageScore']/10}}</p>
+                                    </div>
+                                    {% if anime['status'] == 'RELEASING' and anime['type'] == 'ANIME' %}
+                                        <div id="addbuttondiv">
+                                            <button class="addbutton" data-anime-id="{{anime['id']}}">ADD</button>
                                         </div>
                                     {% endif %}
                                 </div>
@@ -123,8 +130,3 @@
     
     
 {% endblock %}
-<!-- 
-<div class="animesearchinfo">
-    <p>{{anime['seasonYear']}}</p>
-    <p>{{anime['episodes']}} Episodes</p>
-</div>-->

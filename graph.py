@@ -8,7 +8,7 @@ from datetime import datetime
 
 # List of allowed tags and attributes
 allowed_tags = [
-    'a', 'abbr', 'acronym', 'b', 'blockquote', 'code', 'em', 'i', 'li', 'ol', 'strong', 'ul', 'p'
+    'a', 'abbr', 'acronym', 'b', 'blockquote', 'code', 'em', 'i', 'li', 'ol', 'strong', 'ul', 'p', 'br'
 ]
 allowed_attributes = {
     'a': ['href', 'title'],
@@ -40,6 +40,29 @@ def get_date() -> dict:
     }
     return dict_date
     
+def create_datetime_dict(unix_timestamp):
+    # Convert Unix timestamp to datetime object
+    dt = datetime.fromtimestamp(unix_timestamp)
+    
+    # Create the dictionary with required fields
+    datetime_dict = {
+        'day': dt.day,
+        'weekday': dt.strftime('%A'),  # Full weekday name
+        'hour': dt.hour,
+        'minutes': dt.minute
+    }
+    
+    return datetime_dict
+
+def add_datetime_anime(animelist :list):
+    for anime in animelist:
+            try:
+                anime['datetime'] = create_datetime_dict(anime['nextAiringEpisode']['airingAt'])
+            except Exception as e:
+                print('error, ', e)
+    return animelist
+                        
+
 # Configure the cache
 cache = Cache(config={'CACHE_TYPE': 'simple'})
 
@@ -203,6 +226,7 @@ def get_anime_search(search: str = None, genre: str = None, sort: str = None, fo
 				episodes
 				type
         format
+        status
 				coverImage {
 				large
 			}
@@ -303,6 +327,38 @@ def get_anime_info(id: int):
 
     return data['Media']
  
+def getAnimesInSchedule(idlist: list):
+    
+    query = '''
+    query ($ids: [Int]) {
+      Page(page: 1, perPage: 50) {
+        media(id_in: $ids) {
+          id
+          title {
+            romaji
+            english
+          }
+          coverImage {
+            large
+          }
+          nextAiringEpisode {
+            id
+            episode
+            airingAt
+          }
+        }
+      }
+    }
+    '''
+    variables = {
+        'ids': idlist
+    }
+    
+    data = make_graphql_query(query, variables)
+
+    return data
+
+
 def getAnimeForSchedule(variables: dict):
       
     # Here we define our query as a multi-line string

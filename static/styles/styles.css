@@ -16,7 +16,7 @@ footer {
     margin-top: auto;
 }
 .wrapper {
-    min-height: calc(100% - 20vh); 
+    min-height: calc(100% - 15vh); 
     display: flex;
     flex-direction: column;
 }
@@ -179,6 +179,18 @@ main {
 
 }
 .animedescription p {
+    margin: 0;
+    padding: 0; 
+    padding-right: 5px;
+    overflow-y: auto;
+    
+}
+.animeinfodescription {
+    
+    overflow-y: hidden;
+
+}
+.animeinfodescription p {
     margin: 0;
     padding: 0; 
     padding-right: 5px;
@@ -402,11 +414,52 @@ main {
     position: absolute;
     top: 0px; 
 }
+#popuscore{
+    background-color: unset;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+}
+.bottoninfo {
+    flex-direction: row-reverse;
+    background-color: unset;
+}
+#addbuttondiv {
+    background-color: unset;
+    padding: 0;
+    display: flex;
+    padding: 1.5em 1em 0 0 ;
+
+}
+.addbutton {
+    color: white;
+    font-weight: 400;
+}
+.addbutton-animeinfo{
+    margin-left:1em;
+}
+.greenbutton {
+    background-color: green;
+}
+.greenbutton:hover {
+    background-color: blue;
+}
+.redbutton {
+    background-color: red;
+}
+.redbutton:hover {
+    background-color: yellow;
+}
 .popularity {
-    border-top-right-radius: 0.9rem;
+    border-top-left-radius: 0.9rem;
+    width: fit-content;
+    
 }
 .averagescore {
     border-top-left-radius: 0.9rem;
+    width: fit-content;
+    
 }
 .align-right {
     justify-content: flex-end;
@@ -511,7 +564,9 @@ section{
 }
 .animecoverimage img{
     width: 300px;
-    
+}
+.specification {
+    margin-bottom: 1em;
 }
 .middleco {
     margin: 0 1em;
@@ -715,6 +770,7 @@ section{
         margin-left: 1em;
         padding-right: 0.5em;
         padding-left: 0.2em;
+       
     }
     .searchanime {
         margin: 1em 0;
@@ -748,13 +804,76 @@ section{
     font-weight: 500;
     font-size: 20px;
 }
-/* shedule.html */
-.mainview {
+/* schedule.html */
+
+.schedulecontainer {
     display: flex;
-    height: 100vh;
-    width: 100%;
+    flex-direction: row;
+    justify-content: center;
+}
+.daycolumn {
+    flex: 0 0 auto;
+    width: 200px;
+    min-height: 200px;
+    color: white;
+    margin-bottom: 2em;
+    margin-right: 1em;
+}
+.uno {
+    background-color: #262626;
+}
+.dos {
+    background-color: #313030;
+}
+.dayheader {
+    border: 1px solid white;
+    text-align: center;
+    padding: 0.5em 0;
+    height: 3em;
+}
+.anime-entry { 
+    display: flex;
     flex-direction: column;
-    
+    margin-bottom: 0.5em;
+}
+.anime-entry:hover{
+    cursor: pointer;
+}
+.animeInfo {
+    position: absolute;
+    display: flex;
+    height: 300px;
+    width: 200px;
+    z-index: 1;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.animeTitle {
+    background-color: rgba(0, 0, 0, 0.6);
+}
+.schedule-text {
+   text-align: center;
+   margin: 0;
+   padding: 4px 2px;
+   
+}
+.next-episode {
+    background-color: rgba(0, 0, 0, 0.7)
+}
+.imgschedule {
+    width: 200px;
+    height: 300px;
+}
+@media only screen and (max-width: 1430px) {
+    .schedulecontainer {
+        flex-wrap: wrap;
+    }
+    .daycolumn {
+        width: 200px;
+    }
+    .end {
+
+    }
 }
 .searcher {
     position: relative;
