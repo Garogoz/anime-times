@@ -22,8 +22,8 @@ def seasons():
 
 @app.route('/anime', methods=['GET'])
 def anime():
-    data = graph.get_anime(request.args.get('anime'))
-    return render_template('anime.html', title="Anime", data=data)
+    data = graph.get_anime(request.args.get('title'))
+    return render_template('anime.html', title="Anime")
 
 
 @app.route('/<season>/<int:year>', methods=['GET'])

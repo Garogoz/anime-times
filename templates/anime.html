@@ -5,14 +5,9 @@
 {% endblock %}
 
 {% block main %}
-    <form action="/anime" method="get">
-        <input type="text" name="anime" autocomplete="off">
+    <form action="/anime" method="get" class="searchanime">
+        <input type="text" name="title" autocomplete="off" placeholder="Anime">
         <button type="submit">Search</button>
     </form>
-    <ol>
     
-    <li>{{ data['title']['romaji'] }}</li>
-    <img src="{{ data['coverImage']['large']}}" alt="anime image">
-    
-</ol>
 {% endblock %}

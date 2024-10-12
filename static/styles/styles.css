@@ -103,6 +103,13 @@ hr {
 .genres {
     border: 1px solid grey;
     border-radius: 2em;
-    padding: 0.25em;
+    padding: 0.25em 0.3em;
     margin-right: 0.5em;
+    font-size: 14px;
+}
+
+/* anime.hmtl */
+.searchanime {
+    margin-top:2em;
+    text-align: center;
 }
