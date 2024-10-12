@@ -26,28 +26,38 @@ def anime():
     graph.time.sleep(0.3)
     title = request.args.get('title')
     genre = request.args.get('selectgenre')
+    page = request.args.get('page', default=1, type=int)
+    
     if not title and not genre:
         # get all animes and sort by popularity
-        data = graph.get_anime_by_title(None)
+        data = graph.get_anime_by_title(None, None, page)
         print('1 working')
     elif title and not genre:
-        data = graph.get_anime_by_title(title)
+        data = graph.get_anime_by_title(title, None, page)
         print('2 working')
     elif not title and genre:
         # get all animes by genre and sort by popularity
-        data = graph.get_anime_by_genre(genre)
+        data = graph.get_anime_by_genre(genre, page)
         print('3 working')
     elif title and genre:
-        data = graph.get_anime_by_title(title, genre)
+        data = graph.get_anime_by_title(title, genre, page)
         print('4 working')
-    '''
-    if request.args.get('selectgenre') is not "":
-        data = graph.get_anime_by_title(request.args.get('title'), request.args.get('selectgenre'))
-    else:
-        data = graph.get_anime_by_title(request.args.get('title'))
-    '''
     
-    return render_template('anime.html', title="Search", data=data)
+     # Construct the URL dynamically based on the parameters with values
+    url_params = {}
+    if title:
+        url_params['title'] = title
+    if genre:
+        url_params['selectgenre'] = genre
+
+     # Build the URL query string
+    url_query_string = '&'.join([f"{key}={value}" for key, value in url_params.items()])
+    url = f"/anime?{url_query_string}" if url_query_string else "/anime"
+
+    prev_page_url = url_for('anime', title=title, selectgenre=genre, page=page-1) if page > 1 else None
+    next_page_url = url_for('anime', title=title, selectgenre=genre, page=page+1) if data['page_info']['hasNextPage'] else None
+    
+    return render_template('anime.html', title="Search", data=data, prev_page_url=prev_page_url, next_page_url=next_page_url, url=url)
 
 @app.route('/anime/<int:id>', methods=['GET'])
 def gotoanime(id: int):
@@ -63,29 +73,34 @@ def gotoanime(id: int):
 @app.route('/<season>/<int:year>/<format>', methods=['GET'])
 @app.route('/<season>/<int:year>/<format>/<int:page>', methods=['GET'])
 def anime_season(season, year, format='TV', page=0):
-        
-        if page is None:
-            print('page is none')
-            return redirect(f'/{season}/{year}/{format}/0')
-        cache_key = f"{season.lower()}-{year}-{format}-{page}"
-        print(cache_key)
-        cached_data = cache.get(cache_key)
-        title = f'{season.capitalize()} {year}'
-        if cached_data:
-            print("CACHED!")
-            return render_template('season.html', title=title, data=cached_data)
+    form_data = {
+        "season": season,
+        "year": year,
+        "format": format
+    }
+    SEASONS = ['WINTER', 'SPRING', 'SUMMER', 'FALL']
+    if page is None:
+        print('page is none')
+        return redirect(f'/{season}/{year}/{format}/1')
+    cache_key = f"{season.lower()}-{year}-{format}-{page}"
+    print(cache_key)
+    cached_data = cache.get(cache_key)
+    title = f'{season.capitalize()} {year}'
+    if cached_data:
+        print("CACHED!")
+        return render_template('season.html', title=title, data=cached_data, form_data=form_data, seasons=SEASONS)
 
-        # If data is not cached, retrieve it and cache it
-        print("NOT CACHED!!!")
-        variables = {
-            'season': season.upper(),
-            'seasonYear': year,
-            'format': format,
-            'page': page
-        }
-        season_data = graph.get_anime_season(variables)
-        cache.set(cache_key, season_data)
-        return render_template('season.html',title=title, data=season_data)
+    # If data is not cached, retrieve it and cache it
+    print("NOT CACHED!!!")
+    variables = {
+        'season': season.upper(),
+        'seasonYear': year,
+        'format': format,
+        'page': page
+    }
+    season_data = graph.get_anime_season(variables)
+    cache.set(cache_key, season_data)
+    return render_template('season.html',title=title, data=season_data, form_data=form_data)
 
 @app.route('/gotoseason', methods=['POST'])
 def gotoseason():
@@ -96,7 +111,6 @@ def gotoseason():
         return redirect(f'{season}/{year}/{format}')
     except:
         return error("Missing input in format")
-    
 
     
 @app.route('/404', methods=['GET'])

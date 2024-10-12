@@ -53,12 +53,15 @@ def struct_data_multiple(data):
     if not data:
         return None
     anime_data = []
+    page_info = data['Page']['pageInfo']
     animes = data['Page']['media']
     genres = data['GenreCollection']
+    
     for anime in animes: 
         anime_data.append(anime)
         
     info = {
+  'page_info': page_info,
 	'anime_data': anime_data,
 	'genres': genres
 	}
@@ -124,9 +127,6 @@ def get_anime_season_data(variables: dict):
 
     return struct_data_multiple(data)
     
-    
-	
-
 
 def cached_anime_season(timeout=86400):
     def decorator(func):
@@ -143,7 +143,7 @@ def get_anime_season(variables: dict, cache_key, timeout):
     return get_anime_season_data(variables)
 
 
-def get_anime_by_title(search: str, genre: str = None, page: int = 1, perPage: int = 50):
+def get_anime_by_title(search: str, genre: str = None, page: int = 1, perPage: int = 25):
     query = '''
 	query ($id: Int, $page: Int, $perPage: Int, $search: String, $genre: String) {
 		Page (page: $page, perPage: $perPage) {
@@ -186,8 +186,8 @@ def get_anime_by_title(search: str, genre: str = None, page: int = 1, perPage: i
     data = make_graphql_query(query, variables)
     
     return struct_data_multiple(data)
-    
-def get_anime_by_genre(genre: str, page: int = 1, perPage: int = 50):
+
+def get_anime_by_genre(genre: str, page: int = 1, perPage: int = 20):
     query = '''
     query ($genre: String, $page: Int, $perPage: Int){
   	Page (page: $page, perPage: $perPage) {
@@ -234,7 +234,8 @@ def get_anime_by_genre(genre: str, page: int = 1, perPage: int = 50):
 }
     '''
     variables = {
-        'genre': genre
+        'genre': genre,
+        'page': page
 	}
     data = make_graphql_query(query, variables)
     

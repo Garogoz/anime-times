@@ -5,15 +5,16 @@
 {% endblock %}
 
 {% block main %}
-    <form action="/anime" method="get" class="searchanime">
+    <form action="{{url}}" method="get" class="searchanime">
         <input type="text" name="title" autocomplete="off" placeholder="Title" class="inputradius">
-        <select name="selectgenre" id="selectgenre" class="selectgenre inputradius">
+        <select name="selectgenre" id="selectgenre" class="selectgenre inputradius button-search">
             <option value="" selected>Any</option>
             {% for genre in data['genres'] %}
                 <option value="{{ genre }}">{{ genre }}</option>
             {% endfor %}
         </select>
-        <button type="submit">Search</button>
+        <input type="hidden" name="page" value="{{ page }}">
+        <button type="submit" class="submitbutton button-search">Search</button>
     </form>
     <div id="anime-search">
         {% for anime in data['anime_data'] %}
@@ -49,6 +50,18 @@
         
         {% endfor %}
     </div>
+    
+    <div class="nextpage">
+        {% if prev_page_url %}
+            <a href="{{ prev_page_url }}" class="pages">Previous Page</a>
+        {% endif %}
+
+        {% if next_page_url %}
+            <a href="{{ next_page_url }}" class="pages">Next Page</a>
+        {% endif %}
+    </div>
+    
+    <div>{{data['page_info']['lastPage']}}</div>
     
 {% endblock %}
 <!-- 
