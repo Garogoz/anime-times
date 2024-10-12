@@ -6,6 +6,7 @@ from functools import wraps
 # Configure the cache
 cache = Cache(config={'CACHE_TYPE': 'simple'})
 
+url = 'https://graphql.anilist.co'
 
 def jprint(obj):
     # create a formatted string of the Python JSON object
@@ -18,7 +19,7 @@ def handle_error(status_code: int):
 
 
 def get_anime_season_data(variables):
-    url = 'https://graphql.anilist.co'
+    
     anime_data = []
     # Here we define our query as a multi-line string
     query = '''
@@ -31,7 +32,7 @@ def get_anime_season_data(variables):
           lastPage
           hasNextPage
         }
-        media(season: $season, seasonYear: $seasonYear, format: $format) {
+        media(season: $season, seasonYear: $seasonYear, format: $format, sort: POPULARITY_DESC) {
           id
           title {
             romaji
@@ -84,9 +85,9 @@ def get_anime_season_data(variables):
 def cached_anime_season(timeout=86400):
     def decorator(func):
         @wraps(func)
-        def wrapper(season, year):
+        def wrapper(season, year, page):
             variables = {
-                'page': 1,
+                'page': page,
                 'seasonYear': year,
                 'season': season.upper(),
                 'format': 'TV'
@@ -99,3 +100,43 @@ def cached_anime_season(timeout=86400):
 @cached_anime_season()
 def get_anime_season(season_variables, cache_key, timeout):
     return get_anime_season_data(season_variables)
+
+def get_anime(title: str):
+    query = '''
+  query ($title: String!) {
+    Media(search: $title, type: ANIME) {
+      id
+      title {
+        romaji
+        english
+        native
+      }
+      startDate {
+        year
+        month
+        day
+      }
+      endDate {
+        year
+        month
+        day
+      }
+      status
+      episodes
+      description
+      coverImage {
+		large
+	  }
+    }
+  }'''
+    variables = {
+        'title': title
+    }
+    anime_data = []
+
+    response = requests.post(url, json={'query': query, 'variables': variables})
+    if response.status_code == 200:
+        data = response.json()['data']['Media']
+        '''for anime in data: 
+            anime_data.append(anime)'''
+        return data

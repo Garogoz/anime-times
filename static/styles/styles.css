@@ -1,11 +1,24 @@
 body {
     font-family: Sans-serif;
-    background-color: rgb(237,241,245)
+    background-color: rgb(237,241,245);
+    padding: 0;
 }
 
-header {
+.header {
     background-color: #2b2d42;;
     width: 100%;
-    height: 14rem;
-    
+    padding-bottom: 5vh;
+}
+
+.prueba {
+    font-size: 1.5em;
+}
+
+.logoat {
+    font-size: 3em !important;
+    padding-left: 1em;
+}
+
+.navbar-nav a {
+    margin-left: 2em;
 }
