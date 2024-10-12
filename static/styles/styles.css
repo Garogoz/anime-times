@@ -752,21 +752,50 @@ section{
     display: flex;
     height: 100vh;
     width: 100%;
+    flex-direction: column;
     
 }
-.addshows {
-    width: 25%;
-    height: 100%;
-    background-color: rgb(245, 171, 171);
+.searcher {
+    position: relative;
+    width: 300px; /* Adjust width as needed */
+    
 }
-.schedule {
-    width: 75%;
-    height: 100%;
-    background-color: rgb(140, 140, 229);
+#searchResults {
+    position: absolute;
+    top: calc(100% + 5px);
+    left: 0;
+    z-index: 1000;
+    background-color: #212121;
+    border: 1px solid #ccc;
+    max-height: 700px;
+    overflow-y: auto;
+    display: none;
+    width: 450px;
 }
-.searchform {
-    margin: 2em 1em;
+#searchResults.visible {
+    display: block;
 }
-.show-list {
-    border: 1px solid black;
+.search-results-item {
+    padding: 5px;
+    border-bottom: 1px solid #ddd;
+    cursor: pointer;
+}
+.search-results-item:last-child {
+    border-bottom: none;
+}
+.anime-search-result {
+    display: flex;
+    
+    border-bottom: 1px solid grey;
+    color: #fff;
+    
+}
+.anime-search-result img {
+    height: 150px;
+    width: 100px;
+}
+.title-episodes {
+    display: flex;
+    flex-direction: column;
+    padding-left: 5px;
 }

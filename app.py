@@ -104,11 +104,23 @@ def gotoseason():
         return redirect(f'{season}/{year}/{format}')
     except:
         return  404  #fix
-@app.route ('/schedule')
+@app.route ('/schedule', methods=['POST', 'GET'])
 def schedule():
-    
-    return render_template('schedule.html')
+    if request.method == 'POST':
+        data = request.json
+        title = data.get('search')
 
+        variables = {
+        'search' : title
+        }
+
+        response = graph.getAnimeForSchedule(variables)
+        print("runnnnnnnnnnnnn")
+        print(response)
+        return jsonify(response)
+    else:
+        return render_template('schedule.html')
+    
 @app.errorhandler(404)
 def page_not_found(error):
     return render_template('error.html'), 404

@@ -261,49 +261,31 @@ def getAnimeForSchedule(variables: dict):
       
     # Here we define our query as a multi-line string
     query = '''
-    query ($page: Int, $season: MediaSeason, $seasonYear: Int, $format: MediaFormat){
-      Page(perPage: 50, page: $page) {
-        pageInfo {
-          total
-          perPage
-          currentPage
-          lastPage
-          hasNextPage
+    query($search: String){
+    Page(page: 1, perPage: 5) {
+      pageInfo {
+            total
+            perPage
+            currentPage
+            lastPage
+            hasNextPage
+          }
+      media(search: $search, type: ANIME) {
+        id
+        title{
+          romaji
         }
-        media(season: $season, seasonYear: $seasonYear, format: $format, sort: POPULARITY_DESC) {
-          id
-          title {
-            romaji
-            english
-          }
-          startDate {
-            year
-            month
-            day
-          }
-          episodes
-          season
-          seasonYear
-          type
-          duration
-          genres
-          averageScore
-          popularity
+        type
+        format
           coverImage {
-            extraLarge
-            large
-            medium
-            color
-          }
-          bannerImage
-          description
-          
+          medium
         }
-      }
-      GenreCollection
+        averageScore
+        episodes
     }
-
+  }
+}
     '''
     data = make_graphql_query(query, variables)
 
-    return struct_data_multiple(data)
+    return data
