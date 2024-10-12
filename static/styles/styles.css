@@ -1,10 +1,11 @@
 body {
     font-family: Sans-serif;
-    background-color: rgb(237,241,245);
+    background-color: #222!important;
     padding: 0;
 }
 hr {
     margin: 0 !important;
+    background-color: grey;
 }
 .container {
     
@@ -13,9 +14,10 @@ hr {
     text-align: center;
 }
 .header {
-    background-color: #2b2d42;;
+    background-image: linear-gradient(#222, #2c2a2a);
     width: 100%;
-    padding-bottom: 5vh;
+    padding-bottom: 1vh; 
+    border-bottom: 2px solid black;
 }
 #globalsearch {
     margin-top: 0;
@@ -229,6 +231,27 @@ hr {
     margin: 0;
 }
 /* Animeinfo */
+.backgroundinfo {
+    background-position: 50% 35%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 400px;
+    margin-top: -58px;
+}
+.shadow {
+    background: linear-gradient(180deg,rgba(6,13,34,0) 40%,rgba(6,13,34,.6));
+    height: 100%;
+    width: 100%;
+}
+.animeinfoheader {
+    position: absolute;
+    top: 0;
+    opacity: 0.55;
+    transition: opacity 0.3s ease;
+}
+.animeinfoheader:hover {
+    opacity: 0.95;
+}
 .animeinfo-container {
     margin: 2em 8%;
     display: flex;
@@ -239,16 +262,23 @@ hr {
 .animeinfo-content {
 
 }
+.animeinfo-content a {
+    text-decoration: none !important; /* Remove underline */
+    color: inherit !important; /* Inherit color from parent */
+}
 section{
     padding: 5px;
-    background-color: rgb(219, 212, 212);
+    background-color: #262626;
     border-radius: 3px;
+    color: #fff;
 }
 .section-content {
     margin-bottom: 1em;
 }
 .leftco {
     flex: 0 0 300px;
+    position: relative;
+    top: -170px;
 }
 .animecoverimage {
     margin-bottom: 1em;
@@ -264,8 +294,8 @@ section{
 }
 .rightco {
     flex: 0 0 330px;
-    height: 500px;
-    background-color: grey;
+    height: 100%;
+    max-height: 600px;
 }
 .genre-season {
     display: flex;
@@ -273,6 +303,18 @@ section{
     justify-content: flex-start;
     flex-wrap: wrap;
     
+}
+.green {
+    background-color: rgb(48, 103, 48)!important;
+}
+.red {
+    background-color: rgb(90, 27, 27)!important;
+}
+.blue {
+    background-color: rgb(42, 42, 149)!important;
+}
+.purple {
+    background-color: #4d2f5f!important;
 }
 .tag-content {
     border: 1px solid grey;
@@ -310,6 +352,21 @@ section{
     font-weight:  bold;
     font-size: 20px;
 }
+.relationanime{
+    display: flex;
+    flex-direction: row;
+    color: #fff;
+    height: 150px;
+    border-bottom: 1px solid black;
+}
+.relationimage img{
+    height: 150px;
+    width: 100px;
+}
+.relationinfo {
+    width: 100%;
+    padding-left: 0.5em;
+}
 @media only screen and (max-width: 800px) {
     .animeresults {
       margin: 1em 0.1em;
@@ -335,6 +392,11 @@ section{
     }
     
   }
+  @media only screen and (max-width: 1000px) {
+    .leftco {
+        position: inherit;
+    }
+  }
   @media only screen and (max-width: 1200px) {
     .animeinfo-container {
         margin: 1em 2%;
@@ -342,4 +404,14 @@ section{
     .rightco {
         flex-basis: 100%; /* Third item takes up 100% width */
         margin-right: 0; /* Remove right margin */
-  }
+        margin-top: 1em;
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+    }
+    .relationanime{
+        width: 328px;
+        border-right: 1px solid black;
+    }
+}
+  

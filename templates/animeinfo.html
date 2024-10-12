@@ -4,6 +4,32 @@
     {{data['title']['romaji']}}
 {% endblock %}
 
+{%block header%}
+<header class="backgroundinfo" style="background-image: url('{{banner}}');">
+    <div class="shadow"></div>
+</header>
+<div class="header animeinfoheader">
+    <nav class="navbar navbar-expand-lg navbar-dark prueba">
+        <a class="logoat navbar-brand logo" href="/">AT</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+            <a class="nav-item nav-link active" href="/seasons">Seasons<span class="sr-only">(current)</span></a>
+            <a class="nav-item nav-link" href="#">Schedule</a>
+            <a class="nav-item nav-link" href="/anime">Search Anime</a>
+            <a class="nav-item nav-link push" href="#">About</a>
+            <form action="/anime" method="get" class="searchanime push" id="globalsearch"">
+              <input type="text" name="title" autocomplete="off" placeholder="Anime">
+              <button type="submit">Search</button>
+            </form>
+          </div>
+        </div>
+      </nav>
+</div>
+{%endblock%}
+
 {% block main %}
 
     <div class="animeinfo-container">
@@ -18,8 +44,13 @@
                     {{data['title']['native']}}
                 </div>
                 <div class="animeinfospecs"> 
-                    <span class="darkspan">Episodes: </span>
-                    {{data['episodes']}}
+                    {% if data['type'] == 'MANGA' %}
+                        <span class="darkspan">Chapters: </span>
+                        {{ data['chapters'] }} 
+                    {% else %}
+                        <span class="darkspan">Episodes: </span>
+                        {{ data['episodes'] }}
+                    {% endif %}
                 </div>
                 <div class="animeinfospecs"> 
                     <span class="darkspan">Started airing: </span>
@@ -27,7 +58,21 @@
                 </div>
                 <div class="animeinfospecs"> 
                     <span class="darkspan">Ended airing: </span>
-                    {{data['endDate']['day']}}-{{data['endDate']['month']}}-{{data['endDate']['year']}}
+                    {% if not data['endDate']['day'] or not data['endDate']['month'] or not data['endDate']['year']%}
+                        Ongoing
+                    {% else %}
+                        {{data['endDate']['day']}}-{{data['startDate']['month']}}-{{data['endDate']['year']}}
+                    {% endif %}
+                </div>
+                <div class="animeinfospecs"> 
+                    {% if data['type'] == 'ANIME' %}     
+                            <span class="darkspan">Studio: </span>
+                            {{data['studios']['edges'][0]['node']['name']}}
+                    {% endif %}
+                </div>
+                <div class="animeinfospecs"> 
+                    <span class="darkspan">Source: </span>
+                    {{data['source']}}
                 </div>
                 
             </section>
@@ -44,12 +89,12 @@
                 <div class="animegenres section-part">
                     <h4>Genres</h4>
                     {% for genre in data['genres'] %}
-                        <span class="tag-content">{{genre}}</span>
+                        <span class="tag-content purple">{{genre}}</span>
                     {% endfor %}
                 </div>
                 <div class="animeseason section-part">
                     <h4>Season</h4>
-                    <span class="tag-content">{{data['season']}} {{data['seasonYear']}}</span>
+                    <span class="tag-content blue">{{data['season']}} {{data['seasonYear']}}</span>
                 </div>
                 <div class="animetype section-part">
                     <h4>Type</h4>
@@ -61,7 +106,11 @@
                 </div>
                 <div class="animestatus section-part">
                     <h4>Status</h4>
-                    <span class="tag-content">{{data['status']}}</span>
+                    {% if data['status'] == 'FINISHED' %}
+                        <span class="tag-content red">{{data['status']}}</span>
+                    {% else %}
+                        <span class="tag-content green">{{data['status']}}</span>
+                    {% endif %}
                 </div>
             </section>
             <section class="avgpopularity section-part centercontent">
@@ -76,7 +125,27 @@
             </section>
         </div>
         <div class="animeinfo-content rightco">
-            
+            {% for anime in data['relations']['edges'] %}
+                {% if loop.index <= 4 %}
+                <a href="{{ anime['node']['id'] }}"> 
+                    <div class="relationanime">
+                        <div class="relationimage">
+                            <img src="{{anime['node']['coverImage']['medium']}}" alt="image of {{anime['node']['title']['romaji']}}">
+                        </div>
+                        <div class="relationinfo">
+                            <h6>{{anime['node']['title']['romaji']}}</h6>
+                            {% if anime['node']['format'] == 'MANGA' %}
+                                <span>{{ anime['node']['chapters'] }} chapters</span>
+                            {% else %}
+                                <span>{{ anime['node']['episodes'] }} episodes</span>
+                            {% endif %}
+                            <hr>
+                            <span>{{anime['node']['format']}}</span>
+                        </div>
+                    </div>
+                </a>
+                {% endif %}
+            {% endfor %}
         </div>
     </div>
     

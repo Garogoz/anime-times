@@ -55,7 +55,9 @@ def gotoanime(id: int):
     if data is None:
         return render_template('error.html', "Anime not found")
     else:
-        return render_template('animeinfo.html', title="Anime", data=data)
+        banner = data['bannerImage']
+    
+        return render_template('animeinfo.html', title="Anime", data=data, banner=banner)
 
 
 @app.route('/<season>/<int:year>/<format>', methods=['GET'])
@@ -100,4 +102,3 @@ def gotoseason():
 @app.route('/404', methods=['GET'])
 def error(error: str="Not Found"):
      return render_template("error.html", error=error)
-

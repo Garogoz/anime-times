@@ -13,7 +13,7 @@ def jprint(obj):
     # create a formatted string of the Python JSON object
     text = json.dumps(obj, sort_keys=True, indent=4)
     print(text)
-    
+
 # handle errors
 def handle_error(status_code: int, response_headers):
     if status_code == 429:
@@ -243,7 +243,7 @@ def get_anime_by_genre(genre: str, page: int = 1, perPage: int = 50):
 def get_anime_info(id: int):
     query = '''
     query ($id: Int){
-        Media(id: $id, type: ANIME) {
+        Media(id: $id) {
           id
           title {
             romaji
@@ -261,6 +261,7 @@ def get_anime_info(id: int):
             day
           }
           episodes
+          chapters
           season
           seasonYear
           format
@@ -278,8 +279,34 @@ def get_anime_info(id: int):
           }
           bannerImage
           description
+          source
+          relations {
+          edges {
+            node {
+              id
+              coverImage{
+                medium
+              }
+              title {
+                romaji
+              }
+              format
+              episodes
+              chapters
+            }
+          }
+        }
+          studios {
+          edges {
+            id
+            node{
+              name
+              isAnimationStudio
+            }
+          }
         }
       }
+    }
     '''
     variables = {
         'id': id,

@@ -10,27 +10,28 @@
     <title>AT: {% block title %}{% endblock %}</title>
   </head>
   <body>
-    <header class="header">
-      <nav class="navbar navbar-expand-lg navbar-dark prueba">
-        <a class="logoat navbar-brand logo" href="/">AT</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-          <div class="navbar-nav">
-            <a class="nav-item nav-link active" href="/seasons">Seasons<span class="sr-only">(current)</span></a>
-            <a class="nav-item nav-link" href="#">Schedule</a>
-            <a class="nav-item nav-link" href="/anime">Search Anime</a>
-            <a class="nav-item nav-link push" href="#">About</a>
-            <form action="/anime" method="get" class="searchanime push" id="globalsearch"">
-              <input type="text" name="title" autocomplete="off" placeholder="Anime">
-              <button type="submit">Search</button>
-            </form>
+    {% block header %}
+      <header class="header">
+        <nav class="navbar navbar-expand-lg navbar-dark prueba">
+          <a class="logoat navbar-brand logo" href="/">AT</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+              <a class="nav-item nav-link active" href="/seasons">Seasons<span class="sr-only">(current)</span></a>
+              <a class="nav-item nav-link" href="#">Schedule</a>
+              <a class="nav-item nav-link" href="/anime">Search Anime</a>
+              <a class="nav-item nav-link push" href="#">About</a>
+              <form action="/anime" method="get" class="searchanime push" id="globalsearch"">
+                <input type="text" name="title" autocomplete="off" placeholder="Anime">
+                <button type="submit">Search</button>
+              </form>
+            </div>
           </div>
-        </div>
-      </nav>
-      
+        </nav>
     </header>
+    {%endblock%}
     <main>
        {% block main %}{% endblock %}
     </main>
