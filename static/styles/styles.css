@@ -36,6 +36,9 @@ hr {
 .seasonoption{
     margin-left: 3em;
 }
+#format {
+    width: 70px;
+}
 .season-title{
     text-align: center;
 }
@@ -112,4 +115,42 @@ hr {
 .searchanime {
     margin-top:2em;
     text-align: center;
+}
+.animeresults {
+    display: flex;
+    position: relative;
+    margin: 1.5em 2em;
+    border: 1px solid black;
+    border-radius: 1rem;
+}
+.imgsearch {
+    border-radius: 1rem;
+}
+
+.overlay-text {
+    position: absolute;
+    width: 100%;
+    bottom: 0px; 
+    color: white; 
+    font-size: 24px;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 10px 5px;
+    border-bottom-left-radius: 0.9rem;
+    border-bottom-right-radius: 0.9rem;
+}
+.animesearchinfo {
+    position: absolute;
+    width: auto;
+    top: 0px; 
+    color: white; 
+    font-size: 13px;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 5px;
+    border-top-left-radius: 0.9rem;
+    border-bottom-right-radius: 0.9rem;
+}
+.animesearchinfo p{
+    margin: 0;
 }

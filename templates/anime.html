@@ -9,5 +9,33 @@
         <input type="text" name="title" autocomplete="off" placeholder="Anime">
         <button type="submit">Search</button>
     </form>
+    <div class="animecontainer" id="anime-search">
+        {% for anime in data %}
+        
+            <div class="animeresults">
+                <div class="animecontent">
+                    <img src="{{anime['coverImage']['large']}}" alt="anime cover image" class="imgsearch">
+                    <div class="overlay-text">
+                        <h6>{{anime['title']['romaji']}}</h6>
+                    </div>
+                    <div class="animesearchinfo">
+                        <p>{{anime['seasonYear']}}</p>
+                        
+                    </div>
+                </div>
+                <div class="extras">
+                    {% for genre in anime['genres'] %}
+                        <span class="genres">{{genre}}</span>
+                    {% endfor %}
+                </div>
+            </div>
+        
+        {% endfor %}
+    </div>
     
 {% endblock %}
+<!-- 
+<div class="animesearchinfo">
+    <p>{{anime['seasonYear']}}</p>
+    <p>{{anime['episodes']}} Episodes</p>
+</div>-->

@@ -85,12 +85,12 @@ def get_anime_season_data(variables):
 def cached_anime_season(timeout=86400):
     def decorator(func):
         @wraps(func)
-        def wrapper(season, year, page):
+        def wrapper(season, year, page, format="TV"):
             variables = {
                 'page': page,
                 'seasonYear': year,
                 'season': season.upper(),
-                'format': 'TV'
+                'format': format
             }
             cache_key = f'{season.lower()}-{year}'
             return func(variables, cache_key, timeout)
@@ -101,42 +101,93 @@ def cached_anime_season(timeout=86400):
 def get_anime_season(season_variables, cache_key, timeout):
     return get_anime_season_data(season_variables)
 
-def get_anime(title: str):
+def get_anime(search: str, page: int = 1, perPage: int = 50):
     query = '''
-  query ($title: String!) {
-    Media(search: $title, type: ANIME) {
-      id
-      title {
-        romaji
-        english
-        native
-      }
-      startDate {
-        year
-        month
-        day
-      }
-      endDate {
-        year
-        month
-        day
-      }
-      status
-      episodes
-      description
-      coverImage {
-		large
-	  }
+query ($id: Int, $page: Int, $perPage: Int, $search: String) {
+    Page (page: $page, perPage: $perPage) {
+        pageInfo {
+            total
+            currentPage
+            lastPage
+            hasNextPage
+            perPage
+        }
+        media (id: $id, search: $search, sort: POPULARITY_DESC) {
+            id
+            title {
+                romaji
+                english
+            }
+            seasonYear
+            episodes
+            type
+            coverImage {
+            extraLarge
+            large
+            medium
+            color
+          }
+        }
     }
-  }'''
+}
+'''
     variables = {
-        'title': title
+        'search': search,
+        "page": page,
+        "perPage": perPage
     }
     anime_data = []
 
     response = requests.post(url, json={'query': query, 'variables': variables})
     if response.status_code == 200:
+        data = response.json()['data']['Page']['media']
+        for anime in data: 
+            anime_data.append(anime)
+        return anime_data
+    else:
+        print("not 200")
+
+def get_anime_info(id: int):
+    query = '''
+    query ($id: Int){
+        Media(id: $id) {
+          id
+          title {
+            romaji
+            english
+          }
+          startDate {
+            year
+            month
+            day
+          }
+          episodes
+          season
+          seasonYear
+          type
+          duration
+          genres
+          averageScore
+          popularity
+          coverImage {
+            extraLarge
+            large
+            medium
+            color
+          }
+          bannerImage
+          description
+        }
+      }
+    }
+    '''
+    variables = {
+        'id': id,
+    }
+
+    response = requests.post(url, json={'query': query, 'variables': variables})
+    if response.status_code == 200:
         data = response.json()['data']['Media']
-        '''for anime in data: 
-            anime_data.append(anime)'''
         return data
+    else:
+        print("f")

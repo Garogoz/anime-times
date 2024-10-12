@@ -10,8 +10,8 @@
             <div class="seasonoption">
                 <label for="season">Select a Season</label>
 
-                <select name="season" id="season">
-                <option value="none" selected disabled>Season</option>
+                <select name="season" id="season" required>
+                <option value="" selected disabled>Season</option>
                 <option value="winter">Winter</option>
                 <option value="spring">Spring</option>
                 <option value="summer">Summer</option>
@@ -20,11 +20,22 @@
             </div>
             <div class="seasonoption">
                 <label for="yearint">Select a Year</label>
-                <select name="yearint" id="yearint">
-                    <option value="none" selected disabled>Year</option>
+                <select name="yearint" id="yearint" required>
+                    <option value="" selected disabled>Year</option>
                     {% for n in range(2024, 1949 , -1)%}
                         <option value="{{n}}">{{n}}</option>
                     {% endfor %}
+            </select>
+            </div>
+            <div class="seasonoption">
+                <label for="format">Format</label>
+                <select name="format" id="format">
+                    <option value="TV" selected >TV</option>
+                    <option value="MOVIE" >Movies</option>  
+                    <option value="OVA" >OVA</option>
+                    <option value="TV_SHORT" >TV Short</option>
+                    <option value="ONA" >ONA (Original Net Animation)</option>
+                    <option value="SPECIAL">Special</option>    
             </select>
             </div>
             <div class="seasonoption">
